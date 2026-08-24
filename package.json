@@ -1,0 +1,23 @@
+{
+  "name": "skyworth-learning-rewards-platform-new",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SKYWORTH learning, sales records, lucky draw, and points mall platform.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
+    "officeparser": "^7.2.3",
+    "pptxgenjs": "^4.0.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.7.0",
+    "sharp": "^0.35.3"
+  }
+}
