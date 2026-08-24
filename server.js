@@ -73,7 +73,7 @@ async function initSupabase() {
     const { data, error } = await supabase.from("users").select("id").limit(1);
     if (error) {
       console.error("Supabase query error:", error.message, "| code:", error.code);
-      if (error.code === "42P01") {
+      if (error.code === "42P01" || error.code === "PGRST205") {
         console.log("Tables not found, creating...");
         await createTables();
         // New tables already have relational columns; just create views
