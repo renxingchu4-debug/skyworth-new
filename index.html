@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SKYWORTH Learning Rewards Platform (New)</title>
+    <title>创维——中美洲 | SKYWORTH Central America</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -25,7 +25,6 @@
           <nav class="intro-links" aria-label="Intro navigation">
             <span>Learning</span>
             <span>Sales Record</span>
-            <span>Lucky Draw</span>
             <span>Point Shop</span>
           </nav>
 
@@ -88,7 +87,6 @@
           <div class="topbar-brand">SKYWORTH</div>
           <nav class="topbar-nav" aria-label="Main navigation">
             <button class="topbar-nav-link is-active" data-view="learn" type="button">Learning</button>
-            <button class="topbar-nav-link" data-view="survey" type="button">Lucky Draw</button>
             <button class="topbar-nav-link" data-view="mall" type="button">Rewards Mall</button>
             <button class="topbar-nav-link" data-view="sales" type="button">Sales Records</button>
             <button class="topbar-nav-link" data-view="admin" type="button">Admin</button>
@@ -258,211 +256,6 @@
         <div id="mallGrid" class="mall-grid"></div>
       </section>
 
-      <!-- ─── Lucky Draw ─── -->
-      <section id="survey" class="view">
-        <!-- Top Building Banner -->
-        <div class="sales-banner">
-          <img src="./skyworth-hq-hero.jpg" alt="SKYWORTH Building" class="sales-banner-img" />
-          <div class="sales-banner-overlay"></div>
-          <div class="sales-banner-content">
-            <div class="sales-banner-title-row">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="sales-banner-icon">
-                <circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/><path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10"/><path d="M2 12h20"/>
-              </svg>
-              <h1 class="sales-banner-title">Lucky Draw</h1>
-            </div>
-            <p class="sales-banner-subtitle">Record your TV sales to unlock today's lucky draw</p>
-          </div>
-        </div>
-        <!-- Profile Bar -->
-        <div class="sales-profile-bar">
-          <div class="sales-profile-left">
-            <div class="sales-profile-avatar" id="surveyProfileInitial">U</div>
-            <div class="sales-profile-info">
-              <strong id="surveyIdentityName">Not registered</strong>
-              <small id="surveyIdentityMeta">Register to submit</small>
-            </div>
-          </div>
-          <div class="sales-profile-right">
-            <span class="sales-profile-label">Draw Status</span>
-            <strong class="sales-profile-count" id="surveyDrawStatusText">Locked</strong>
-          </div>
-        </div>
-
-        <div class="survey-stack">
-          <!-- Form Panel (top) — Step 1/2/3 design -->
-          <section class="panel survey-form-panel">
-            <div class="panel-title">
-              <h2>Sales Record Submission</h2>
-            </div>
-
-            <form id="surveyForm" class="draw-submission-form">
-              <!-- Step 1 -->
-              <div class="draw-step">
-                <div class="draw-step-number">1</div>
-                <div class="draw-step-body">
-                  <label class="draw-step-label">Select TV Model</label>
-                  <div class="draw-model-grid">
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="43E5520H/Q5600K" required /> 43E5520H/Q5600K</label>
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="50E5520H" /> 50E5520H</label>
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="55Q6600H/Q6700H" /> 55Q6600H/Q6700H</label>
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="60Q6600H/Q6700H/Q6620H" /> 60Q6600H/Q6700H/Q6620H</label>
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="65Q6600H" /> 65Q6600H</label>
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="75Q6600H" /> 75Q6600H</label>
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="85Q6600H" /> 85Q6600H</label>
-                    <label class="draw-model-option"><input type="radio" name="surveyModel" value="100Q7800H" /> 100Q7800H</label>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Step 2 -->
-              <div class="draw-step">
-                <div class="draw-step-number">2</div>
-                <div class="draw-step-body">
-                  <label class="draw-step-label">Upload Sales Receipt</label>
-                  <div class="draw-upload-area">
-                    <input id="surveyReceipt" type="file" accept="image/*,.pdf" class="draw-file-input" />
-                    <div class="draw-upload-placeholder">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                      <span>Click to upload receipt image or PDF</span>
-                    </div>
-                  </div>
-                  <p class="draw-receipt-warning"><span class="draw-receipt-warning-icon">⚠️</span> Do not submit duplicate receipts. Prizes won from duplicate submissions will be revoked.</p>
-                </div>
-              </div>
-
-              <!-- Step 3 -->
-              <div class="draw-step">
-                <div class="draw-step-number">3</div>
-                <div class="draw-step-body">
-                  <label class="draw-step-label">Submit</label>
-                  <button class="draw-submit-btn" type="submit">
-                    Submit Sales Record
-                  </button>
-                </div>
-              </div>
-            </form>
-          </section>
-
-          <!-- ─── Three-column Layout ─── -->
-          <div class="draw-three-col">
-            <!-- Left Card: Weekly's Winners -->
-            <aside class="draw-side-card-new macaron-card">
-              <div class="draw-side-card-inner-new">
-                <div class="draw-card-header-area">
-                  <div class="macaron-card-icon macaron-icon-purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="9" r="7"/><path d="M9 16l-4 5h14l-4-5"/><path d="M12 2v3"/>
-                    </svg>
-                  </div>
-                  <span class="macaron-card-title">Winners</span>
-                </div>
-                <div class="draw-winners-list-area" id="drawWeeklyWinnersList">
-                  <div class="draw-winners-empty-new">
-                    <svg width="60" height="60" viewBox="0 0 60 60">
-                      <rect x="10" y="22" width="40" height="32" rx="6" fill="#EFF6FF" stroke="#60A5FA" stroke-width="1.5"/>
-                      <path d="M10 22 L30 12 L50 22" fill="none" stroke="#60A5FA" stroke-width="1.5"/>
-                      <path d="M30 12 L30 54" fill="none" stroke="#60A5FA" stroke-width="1.5"/>
-                      <path d="M20 12 Q20 6 30 12 Q40 6 40 12" fill="none" stroke="#60A5FA" stroke-width="1.5"/>
-                    </svg>
-                    <span class="draw-winners-empty-text">No winners yet</span>
-                  </div>
-                </div>
-                <button class="macaron-btn macaron-btn-purple" id="viewAllWinnersBtn" type="button">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="6" height="14" rx="1"/><rect x="9" y="10" width="6" height="10" rx="1"/><rect x="16" y="2" width="6" height="18" rx="1"/></svg>
-                  View All Winners
-                </button>
-              </div>
-            </aside>
-
-            <!-- Center: Festive 3D Wheel -->
-            <section class="draw-wheel-stage-new">
-              <div class="draw-wheel-container-new festive-wheel-container">
-                <!-- Outer ring (bulbs removed) -->
-                <div class="festive-outer-ring"></div>
-
-                <!-- Inner gold ring -->
-                <div class="festive-inner-ring"></div>
-
-                <!-- Wheel Segments -->
-                <div class="draw-wheel-segments festive-wheel-segments" id="wheelCanvas">
-                  <span class="draw-seg-label draw-seg-0" style="--seg-angle: 0deg;">50,000<br>Points</span>
-                  <span class="draw-seg-label draw-seg-1" style="--seg-angle: 40deg;">QLED TV</span>
-                  <span class="draw-seg-label draw-seg-2" style="--seg-angle: 80deg;">Missed</span>
-                  <span class="draw-seg-label draw-seg-3" style="--seg-angle: 120deg;">Hand Fan</span>
-                  <span class="draw-seg-label draw-seg-4" style="--seg-angle: 160deg;">Electric<br>Toothbrush</span>
-                  <span class="draw-seg-label draw-seg-5" style="--seg-angle: 200deg;">Electric<br>Shaver</span>
-                  <span class="draw-seg-label draw-seg-6" style="--seg-angle: 240deg;">Bluetooth<br>Earbuds</span>
-                  <span class="draw-seg-label draw-seg-7" style="--seg-angle: 280deg;">Green Bag</span>
-                  <span class="draw-seg-label draw-seg-8" style="--seg-angle: 320deg;">20,000<br>Points</span>
-                </div>
-
-                <!-- Center Hub -->
-                <div class="draw-wheel-center-hub festive-hub">
-                  <div class="festive-hub-outer">
-                    <div class="festive-hub-inner">
-                      <span class="festive-hub-text">LOCKED</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- SPIN Button -->
-                <button id="spinButton" class="draw-spin-btn-new festive-spin-btn" type="button" disabled>SPIN</button>
-
-                <!-- Top Pointer -->
-                <div class="draw-wheel-pointer-new festive-pointer">
-                  <svg width="48" height="52" viewBox="0 0 48 52">
-                    <defs>
-                      <linearGradient id="ptrGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="#FF6B6B"/>
-                        <stop offset="100%" stop-color="#D63031"/>
-                      </linearGradient>
-                      <filter id="ptrShadow" x="-20%" y="-10%" width="140%" height="130%">
-                        <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#D63031" flood-opacity="0.35"/>
-                      </filter>
-                    </defs>
-                    <polygon points="24,50 4,10 44,10" fill="url(#ptrGrad)" filter="url(#ptrShadow)"/>
-                    <polygon points="24,46 8,12 40,12" fill="#FF8E8E" opacity="0.5"/>
-                    <ellipse cx="24" cy="10" rx="20" ry="3" fill="#FFB5B5" opacity="0.6"/>
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Lock Hint -->
-              <div class="draw-wheel-hint-area festive-hint">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D63031" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                <span class="draw-wheel-hint-text festive-hint-text" id="drawWheelHint">Submit sales record to unlock.</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D63031" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-            </section>
-
-            <!-- Right Card: Available Chances -->
-            <aside class="draw-side-card-new macaron-card">
-              <div class="draw-side-card-inner-new">
-                <div class="draw-card-header-area">
-                  <div class="macaron-card-icon macaron-icon-pink">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M6 3h12v6a6 6 0 0 1-12 0V3z"/><path d="M9 21h6"/><path d="M12 15v6"/>
-                    </svg>
-                  </div>
-                  <span class="macaron-card-title">Available Chances</span>
-                </div>
-                <div class="draw-big-number-wrap">
-                  <div class="macaron-number-bg"></div>
-                  <span class="draw-big-number" id="drawChancesCount">0</span>
-                </div>
-                <span class="macaron-card-sub">Chances Left</span>
-                <button class="macaron-btn macaron-btn-pink" id="myHistoryBtn" type="button">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/><path d="M3 10h18"/></svg>
-                  My History
-                </button>
-              </div>
-            </aside>
-          </div>
-
-
-        </div>
-      </section>
 
       <!-- ═══════════════════════════════════════════════
            Sales Record — Premium SaaS Redesign
@@ -678,7 +471,7 @@
               </svg>
               <h1 class="sales-banner-title">Admin Panel</h1>
             </div>
-            <p class="sales-banner-subtitle">Manage learning content, sales data, and draw results</p>
+            <p class="sales-banner-subtitle">Manage learning content, sales data, and rewards</p>
           </div>
         </div>
         <!-- Profile Bar -->
@@ -698,7 +491,6 @@
           <div class="admin-actions">
             <button id="exportButton" class="secondary-btn">Export All CSV</button>
             <button id="exportLearningBtn" class="secondary-btn">Export Learning</button>
-            <button id="exportDrawBtn" class="secondary-btn">Export Lucky Draw</button>
             <button id="exportRedemptionBtn" class="secondary-btn">Export Redemptions</button>
             <button id="exportSalesBtn" class="secondary-btn">Export Sales</button>
             <button id="backupButton" class="secondary-btn" type="button">Backup Data</button>
@@ -728,7 +520,6 @@
             <span style="font-size:13px;color:#64748b;">Delete by table:</span>
             <button class="danger-btn-sm" data-clear="users">Clear Users</button>
             <button class="danger-btn-sm" data-clear="attempts">Clear Attempts</button>
-            <button class="danger-btn-sm" data-clear="surveys">Clear Draw Data</button>
             <button class="danger-btn-sm" data-clear="learningRecords">Clear Learning</button>
             <button class="danger-btn-sm" data-clear="redemptions">Clear Redemptions</button>
             <button class="danger-btn-sm" data-clear="salesRecords">Clear Sales</button>
@@ -737,9 +528,7 @@
           <article class="stat"><span>Users</span><strong id="statUsers">0</strong></article>
           <article class="stat"><span>Courses</span><strong id="statCourses">0</strong></article>
           <article class="stat"><span>Quiz Attempts</span><strong id="statAttempts">0</strong></article>
-          <article class="stat"><span>Draw Entries</span><strong id="statSurveys">0</strong></article>
           <article class="stat"><span>Sales Records</span><strong id="statSalesRecords">0</strong></article>
-          <article class="stat"><span>Gifts Won</span><strong id="statWins">0</strong></article>
         </div>
         <!-- ═══ Three Core Data Panels ═══ -->
         <div class="data-grid data-grid--three">
@@ -749,13 +538,6 @@
               <button class="data-panel-dl-btn" data-dl="learning" title="Download CSV">Download</button>
             </div>
             <div id="learningTable" class="table-wrap"></div>
-          </section>
-          <section class="panel data-panel">
-            <div class="data-panel-header">
-              <h3>Lucky Draw</h3>
-              <button class="data-panel-dl-btn" data-dl="draw" title="Download CSV">Download</button>
-            </div>
-            <div id="surveyTable" class="table-wrap"></div>
           </section>
           <section class="panel data-panel">
             <div class="data-panel-header">
@@ -782,13 +564,6 @@
               <div id="dashStoreBreakdown" class="dashboard-list"></div>
             </div>
           </div>
-        </section>
-        <!-- ═══ Dashboard 2: Lucky Draw Prize Dispatch ═══ -->
-        <section class="panel dashboard-panel">
-          <div class="data-panel-header">
-            <h3>Lucky Draw — Prize Dispatch</h3>
-          </div>
-          <div id="dashDrawDispatchTable" class="table-wrap"></div>
         </section>
         <!-- ═══ Dashboard 3: Points Mall Redemption Dispatch ═══ -->
         <section class="panel dashboard-panel">
@@ -932,44 +707,6 @@
           </div>
           <div id="mallManagerList" class="course-manager-list empty-state">No gifts yet.</div>
         </section>
-        <section class="panel upload-panel admin-upload-panel">
-          <div class="panel-title">
-            <h3 id="prizeEditorTitle">Edit Lucky Draw Prizes</h3>
-            <span class="status-pill">Admin Only</span>
-          </div>
-          <p class="admin-upload-copy">Edit prize name, quantity, and win probability. Total probability should equal 100%.</p>
-          <form id="prizeItemForm" class="form-stack">
-            <input id="editingPrizeIndex" type="hidden" value="-1" />
-            <label>
-              <span>Prize Name</span>
-              <input id="prizeItemName" required placeholder="Example: 50K Points" />
-            </label>
-            <label>
-              <span>Stock Quantity</span>
-              <input id="prizeItemStock" type="number" min="1" step="1" required placeholder="Example: 5" />
-            </label>
-            <label>
-              <span>Win Probability (%)</span>
-              <input id="prizeItemProbability" type="number" min="0" max="100" step="0.001" required placeholder="Example: 10.500" />
-            </label>
-            <label>
-              <span>Display Color</span>
-              <input id="prizeItemColor" type="color" value="#F59E0B" />
-            </label>
-            <div class="editor-actions">
-              <button id="savePrizeItemButton" class="primary-btn" type="submit">Save Prize</button>
-              <button id="cancelPrizeEditButton" class="secondary-btn" type="button" hidden>Cancel Edit</button>
-            </div>
-          </form>
-          <p id="prizeItemSaveStatus" class="course-save-status" aria-live="polite"></p>
-        </section>
-        <section class="panel">
-          <div class="panel-title">
-            <h3>Lucky Draw Prizes</h3>
-            <span class="status-pill">Manage Prizes</span>
-          </div>
-          <div id="prizeManagerList" class="course-manager-list empty-state">No prizes configured.</div>
-        </section>
         </div><!-- end adminContent -->
       </section>
     </main>
@@ -1021,48 +758,7 @@
       </div>
     </noscript>
 
-      <script>
-        if (new URLSearchParams(window.location.search).get("demo") === "draw") {
-          document.body.classList.remove("intro-playing");
-          const introOverlay = document.getElementById("introOverlay");
-          const registrationGate = document.getElementById("registrationGate");
-          const appShell = document.getElementById("appShell");
-          if (introOverlay) {
-            introOverlay.hidden = true;
-            introOverlay.style.display = "none";
-            introOverlay.classList.add("is-hidden");
-          }
-          if (registrationGate) {
-            registrationGate.hidden = true;
-            registrationGate.style.display = "none";
-          }
-          if (appShell) {
-            appShell.hidden = false;
-            appShell.style.display = "block";
-            appShell.classList.remove("is-locked");
-            appShell.classList.add("is-visible");
-          }
-          window.forceDemoDrawView = () => {
-            document.querySelectorAll(".topbar-nav-link").forEach((link) => {
-              link.classList.toggle("is-active", link.dataset.view === "survey");
-            });
-            document.querySelectorAll(".view").forEach((view) => {
-              view.classList.toggle("is-active", view.id === "survey");
-            });
-            // Trigger wheel render if app.js has loaded
-            if (typeof renderPrizeWheel === "function") renderPrizeWheel();
-            if (typeof updateWheelState === "function") updateWheelState();
-          };
-          window.forceDemoDrawView();
-        }
-      </script>
       <script src="./app.js?v=20250727b"></script>
-      <script>
-        if (window.forceDemoDrawView) {
-          window.setTimeout(window.forceDemoDrawView, 250);
-          window.setTimeout(window.forceDemoDrawView, 1000);
-        }
-      </script>
     </div>
   </body>
 </html>

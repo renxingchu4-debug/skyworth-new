@@ -4684,9 +4684,9 @@ async function renderAdmin() {
   $("#statUsers").textContent = users.length;
   $("#statCourses").textContent = restoredCourses.length;
   $("#statAttempts").textContent = attempts.length;
-  $("#statSurveys").textContent = surveys.length;
+  if ($("#statSurveys")) $("#statSurveys").textContent = surveys.length;
   if (els.statSalesRecords) els.statSalesRecords.textContent = salesRecords.length;
-  $("#statWins").textContent = surveys.filter((item) => isGiftPrize(item.prize)).length;
+  if ($("#statWins")) $("#statWins").textContent = surveys.filter((item) => isGiftPrize(item.prize)).length;
 
   const userRows = users
     .sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || ""))
@@ -4753,7 +4753,7 @@ async function renderAdmin() {
   if (els.salesRecordTable) {
     els.salesRecordTable.innerHTML = table(["Time", "User Name", "Province", "Store", "User ID", "Model", "Barcode Number", "Image"], salesRows, "No scans yet.");
   }
-  $("#surveyTable").innerHTML = table(["Time", "Name", "Province", "Store", "User ID", "TV Model", "Receipt", "Prize"], surveyRows, "No sales yet.");
+  if ($("#surveyTable")) $("#surveyTable").innerHTML = table(["Time", "Name", "Province", "Store", "User ID", "TV Model", "Receipt", "Prize"], surveyRows, "No sales yet.");
   renderCourseManager(restoredCourses);
   renderMallManager(restoredMallItems);
   renderPrizeManager();
@@ -5009,7 +5009,7 @@ async function applyDemoViewIfRequested() {
   }
   showAppShell(true);
   await refreshLearnerSummary();
-  showView(params.get("view") || "survey");
+  showView(params.get("view") || "learn");
 }
 
 function csvEscape(value) {
@@ -5640,7 +5640,7 @@ function handleQuestionBuilderClick(event) {
 if (els.adminLoginForm) els.adminLoginForm.addEventListener("submit", handleAdminLogin);
 els.courseForm.addEventListener("submit", saveCourse);
 if (els.saveQuestionsButton) els.saveQuestionsButton.addEventListener("click", saveQuestions);
-els.surveyForm.addEventListener("submit", saveSurvey);
+if (els.surveyForm) els.surveyForm.addEventListener("submit", saveSurvey);
 // Show file preview after selection in Lucky Draw
 const surveyReceiptInput = document.getElementById("surveyReceipt");
 if (surveyReceiptInput) {
@@ -5655,7 +5655,7 @@ if (surveyReceiptInput) {
     }
   });
 }
-els.spinButton.addEventListener("click", spinWheel);
+if (els.spinButton) els.spinButton.addEventListener("click", spinWheel);
 /* ── Side Card Button Events ── */
 const myHistoryBtn = document.getElementById("myHistoryBtn");
 if (myHistoryBtn) {
