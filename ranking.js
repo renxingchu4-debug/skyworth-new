@@ -43,6 +43,11 @@
        *  Replace `api` with real fetches later; UI consumes same shape.
        * ===================================================================== */
       const AVATAR = (seed) => `https://i.pravatar.cc/160?img=${seed}`;
+      const CROWN_IMG = {
+        1: "./crown-gold.png",
+        2: "./crown-silver.png",
+        3: "./crown-bronze.png",
+      };
 
       const baseNamesLearning = [
         ["María González", 1], ["Carlos Méndez", 2], ["Juan Pérez", 3],
@@ -153,9 +158,6 @@
 
       const PERIOD_OPTIONS = [
         { value: "thisMonth",   label: "Este mes" },
-        { value: "lastMonth",   label: "Último mes" },
-        { value: "thisWeek",    label: "Esta semana" },
-        { value: "lastWeek",    label: "Última semana" },
         { value: "thisQuarter", label: "Este trimestre" },
         { value: "thisYear",    label: "Este año" },
       ];
@@ -399,10 +401,10 @@
             className: "absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full opacity-60 blur-3xl pointer-events-none",
             style: { background: "radial-gradient(circle, rgba(244,185,66,.55), transparent 60%)" },
           }),
-          h("div", { className: "relative grid grid-cols-3 gap-3 items-end pt-2" },
-            h(PodiumSlot, { rank: 2, item: p2, unit, height: 92, avatarRing: palette.silverRing, podiumColor: "#C5CAD3", podiumNumber: "#475569" }),
-            h(PodiumSlot, { rank: 1, item: p1, unit, height: 132, avatarRing: palette.goldRing, podiumColor: palette.barColor, podiumNumber: "#FFFFFF", crown: true }),
-            h(PodiumSlot, { rank: 3, item: p3, unit, height: 68, avatarRing: palette.bronzeRing, podiumColor: "#C77E4B", podiumNumber: "#FFFFFF" })
+          h("div", { className: "relative grid grid-cols-3 gap-3 items-end pt-12" },
+            h(PodiumSlot, { rank: 2, item: p2, unit, height: 92, avatarRing: palette.silverRing, podiumColor: "#C5CAD3", podiumNumber: "#475569", crown: true, crownSize: 48, crownLift: 18 }),
+            h(PodiumSlot, { rank: 1, item: p1, unit, height: 132, avatarRing: palette.goldRing, podiumColor: palette.barColor, podiumNumber: "#FFFFFF", crown: true, crownSize: 72, crownLift: 28 }),
+            h(PodiumSlot, { rank: 3, item: p3, unit, height: 68, avatarRing: palette.bronzeRing, podiumColor: "#C77E4B", podiumNumber: "#FFFFFF", crown: true, crownSize: 42, crownLift: 16 })
           ),
           h("div", {
             className: cn(
@@ -413,13 +415,23 @@
         );
       }
 
-      function PodiumSlot({ rank, item, unit, height, avatarRing, podiumColor, podiumNumber, crown }) {
+      function PodiumSlot({ rank, item, unit, height, avatarRing, podiumColor, podiumNumber, crown, crownSize = 44, crownLift = 14 }) {
         if (!item) return h("div", { className: "opacity-0" });
         return h("div", { className: "flex flex-col items-center gap-2" },
           h("div", { className: "relative" },
-            crown && h("div", { className: "absolute -top-3 left-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-gold grid place-items-center shadow-md border-2 border-white" },
-              h(Icon.Crown, { width: 14, height: 14, className: "text-white" })
-            ),
+            crown && h("img", {
+              src: CROWN_IMG[rank] || CROWN_IMG[1],
+              alt: "Corona " + rank,
+              className: "absolute left-1/2 z-10 pointer-events-none select-none",
+              style: {
+                width: crownSize,
+                height: "auto",
+                top: -crownLift,
+                transform: "translateX(-50%)",
+                filter: "drop-shadow(0 4px 6px rgba(0,0,0,.28))",
+              },
+              draggable: false,
+            }),
             h(Avatar, {
               src: item.avatar,
               name: item.name,
@@ -569,7 +581,7 @@
           h("div", { className: "mt-3 flex items-end justify-between gap-3" },
             h("div", null,
               h("p", { className: "text-white/70 text-[11px]" }, "Rank"),
-              h("p", { className: "display font-extrabold text-white text-3xl leading-none" }, "#", numberFmt(data.rank))
+              h("p", { className: "display font-extrabold text-white text-3xl leading-none" }, numberFmt(data.rank))
             ),
             h("div", { className: "text-right" },
               h("p", { className: "text-white/70 text-[11px]" }, "Actual"),
