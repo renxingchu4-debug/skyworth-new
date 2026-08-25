@@ -8,28 +8,20 @@ const QUIZ_ALL_CORRECT_BONUS = 0;
 const SALES_RECORD_POINTS = 5;
 const SPECIALIZATIONS = [
   {
-    id: "company",
-    title: "1. Knowing SKYWORTH",
-    videoTitle: "SKYWORTH Company Introduction",
-    description: "Brand and company basics.",
-    cover: "./course-cover-1-knowing-skyworth.png",
-    youtubeId: "qN4GeE0J6xQ"
-  },
-  {
     id: "tv-basics",
-    title: "2. TV Basics",
+    title: "01. TV Basics",
     description: "Display and TV fundamentals.",
     cover: "./course-cover-2-tv-basic.png"
   },
   {
     id: "product-training",
-    title: "3. Product Training",
+    title: "02. Product Training",
     description: "Product features and selling points.",
     cover: "./course-cover-3-product-training.png"
   },
   {
     id: "tv-operations",
-    title: "4. TV Operation Steps",
+    title: "03. TV Operation Steps",
     description: "Setup and demo steps.",
     cover: "./course-cover-4-tv-operation-steps.png",
     youtubeIds: [
@@ -41,7 +33,7 @@ const SPECIALIZATIONS = [
   },
   {
     id: "faq",
-    title: "5. Frequently Asked Questions",
+    title: "04. Frequently Asked Questions",
     description: "Common retail questions.",
     cover: "./course-cover-5-faq.png"
   }
@@ -2389,26 +2381,90 @@ async function saveQuestions() {
   }
 }
 
+function buildSpecMetricRows(videoPct, materialPct, quizPct) {
+  const rows = [];
+  if (videoPct !== null) {
+    rows.push(`
+      <div class="learn-progress-track" data-metric="video">
+        <span class="learn-progress-label">VIDEO</span>
+        <div class="learn-progress-bar-wrap"><div class="learn-progress-bar-fill" style="width:${videoPct}%"></div></div>
+        <span class="learn-progress-pct">${videoPct}%</span>
+      </div>`);
+  }
+  if (materialPct !== null) {
+    rows.push(`
+      <div class="learn-progress-track" data-metric="material">
+        <span class="learn-progress-label">MATERIAL</span>
+        <div class="learn-progress-bar-wrap"><div class="learn-progress-bar-fill" style="width:${materialPct}%"></div></div>
+        <span class="learn-progress-pct">${materialPct}%</span>
+      </div>`);
+  }
+  if (quizPct !== null) {
+    rows.push(`
+      <div class="learn-progress-track" data-metric="quiz">
+        <span class="learn-progress-label">QUIZ</span>
+        <div class="learn-progress-bar-wrap"><div class="learn-progress-bar-fill" style="width:${quizPct}%"></div></div>
+        <span class="learn-progress-pct">${quizPct}%</span>
+      </div>`);
+  }
+  return rows.join("");
+}
+
+function computeSpecProgress(specialization, courses, ownRecords) {
+  const scopedCourses = courses.filter((course) => (course.specializationId || SPECIALIZATIONS[0].id) === specialization.id);
+  const scopedRecords = ownRecords.filter((record) => (record.specializationId || SPECIALIZATIONS[0].id) === specialization.id);
+
+  // VIDEO: a video counts as completed when played >= 90%
+  const totalVideos = scopedCourses.filter((course) => Boolean(course.video) && course.quizType !== "standalone-quiz").length
+    + (specialization.youtubeId ? 1 : 0)
+    + (specialization.youtubeIds ? specialization.youtubeIds.length : 0);
+  const completedVideos = scopedRecords.filter((record) => record.videoCompleted || (record.videoProgress || 0) >= 90).length;
+  const videoPct = totalVideos > 0 ? Math.round((completedVideos / totalVideos) * 100) : null;
+
+  // MATERIAL: a file counts as completed once viewed
+  const totalMaterials = scopedCourses.filter((course) => hasMaterial(course) && course.quizType !== "standalone-quiz").length;
+  const viewedMaterials = scopedRecords.filter((record) => record.materialViewed).length;
+  const materialPct = totalMaterials > 0 ? Math.round((viewedMaterials / totalMaterials) * 100) : null;
+
+  // QUIZ: progress = completed quizzes / total quizzes (completion is not accuracy)
+  const totalQuizzes = scopedCourses.filter((course) => hasQuiz(course)).length;
+  const completedQuizzes = scopedRecords.filter((record) => record.quizCompleted).length;
+  const quizPct = totalQuizzes > 0 ? Math.round((completedQuizzes / totalQuizzes) * 100) : null;
+
+  // Overall completion: every present content type must reach 100%
+  const requirements = [];
+  if (videoPct !== null) requirements.push(videoPct >= 100);
+  if (materialPct !== null) requirements.push(materialPct >= 100);
+  if (quizPct !== null) requirements.push(quizPct >= 100);
+  const isComplete = requirements.length > 0 && requirements.every(Boolean);
+
+  // Started: any video/material/quiz activity exists but not fully complete
+  const started = completedVideos > 0 || viewedMaterials > 0 || completedQuizzes > 0
+    || scopedRecords.some((r) => (r.videoProgress || 0) > 0 || (r.quizAttempts || 0) > 0);
+
+  return { videoPct, materialPct, quizPct, isComplete, started };
+}
+
 function renderSpecializationCards(courses, ownRecords) {
   els.specializationGrid.innerHTML = SPECIALIZATIONS.map((specialization) => {
-    const scopedCourses = courses.filter((course) => (course.specializationId || SPECIALIZATIONS[0].id) === specialization.id);
-    const scopedRecords = ownRecords.filter((record) => (record.specializationId || SPECIALIZATIONS[0].id) === specialization.id);
-    const totalVideos = scopedCourses.filter((course) => Boolean(course.video) && course.quizType !== "standalone-quiz").length + (specialization.youtubeId ? 1 : 0) + (specialization.youtubeIds ? specialization.youtubeIds.length : 0);
-    const totalFiles = scopedCourses.filter((course) => hasMaterial(course) && course.quizType !== "standalone-quiz").length;
-    const totalTests = scopedCourses.filter((course) => hasQuiz(course)).length;
-    const completedVideos = scopedRecords.filter((record) => record.videoCompleted).length;
-    const viewedFiles = scopedRecords.filter((record) => record.materialViewed).length;
-    const completedTests = scopedRecords.filter((record) => record.quizCompleted).length;
+    const { videoPct, materialPct, quizPct, isComplete, started } = computeSpecProgress(specialization, courses, ownRecords);
+    const badgeClass = isComplete ? "specialization-badge is-complete" : "specialization-badge";
+    const badgeText = isComplete ? "COMPLETADO" : "NO COMPLETADO";
+    const ctaLabel = isComplete ? "Repasar" : (started ? "Continuar" : "Empezar a aprender");
 
     return `
       <button class="specialization-card" type="button" data-specialization="${specialization.id}">
+        <span class="${badgeClass}">${badgeText}</span>
         <img class="specialization-cover" src="${escapeHtml(specialization.cover)}" alt="${escapeHtml(specialization.title)} cover" loading="lazy" />
         <span class="specialization-step">${escapeHtml(specialization.title)}</span>
+        <span class="specialization-desc">${escapeHtml(specialization.description)}</span>
         <div class="specialization-progress">
-          <span class="progress-count">Video (${completedVideos}/${totalVideos})</span>
-          <span class="progress-count">File (${viewedFiles}/${totalFiles})</span>
-          <span class="progress-count">Test (${completedTests}/${totalTests})</span>
+          ${buildSpecMetricRows(videoPct, materialPct, quizPct)}
         </div>
+        <span class="specialization-cta">
+          <span class="specialization-cta-label">${ctaLabel}</span>
+          <span class="specialization-cta-arrow">→</span>
+        </span>
       </button>
     `;
   }).join("");
@@ -2440,19 +2496,31 @@ async function updateSpecializationProgress(course, learningRecord) {
   const records = await getAll("learningRecords");
   const ownRecords = records.filter((item) => item.userId === currentProfile?.id);
   const courses = await getAll("courses");
-
-  const scopedCourses = courses.filter((c) => (c.specializationId || SPECIALIZATIONS[0].id) === specId);
-  const scopedRecords = ownRecords.filter((r) => (r.specializationId || SPECIALIZATIONS[0].id) === specId);
   const specMeta = getSpecializationMeta(specId);
 
-  const totalVideos = scopedCourses.filter((c) => Boolean(c.video)).length + (specMeta.youtubeId ? 1 : 0) + (specMeta.youtubeIds ? specMeta.youtubeIds.length : 0);
-  const completedVideos = scopedRecords.filter((r) => r.videoCompleted).length;
-  const videoPct = totalVideos > 0 ? Math.round((completedVideos / totalVideos) * 100) : 0;
+  const { videoPct, materialPct, quizPct, isComplete, started } = computeSpecProgress(specMeta, courses, ownRecords);
 
-  const videoBar = card.querySelector(".learn-progress-track:nth-child(1) .learn-progress-bar-fill");
-  const videoPctText = card.querySelector(".learn-progress-track:nth-child(1) .learn-progress-pct");
-  if (videoBar) videoBar.style.width = `${videoPct}%`;
-  if (videoPctText) videoPctText.textContent = `${videoPct}%`;
+  const setMetric = (type, pct) => {
+    const track = card.querySelector(`.learn-progress-track[data-metric="${type}"]`);
+    if (!track) return;
+    const fill = track.querySelector(".learn-progress-bar-fill");
+    const pctEl = track.querySelector(".learn-progress-pct");
+    if (fill) fill.style.width = `${pct}%`;
+    if (pctEl) pctEl.textContent = `${pct}%`;
+  };
+  if (videoPct !== null) setMetric("video", videoPct);
+  if (materialPct !== null) setMetric("material", materialPct);
+  if (quizPct !== null) setMetric("quiz", quizPct);
+
+  const badge = card.querySelector(".specialization-badge");
+  if (badge) {
+    badge.textContent = isComplete ? "COMPLETADO" : "NO COMPLETADO";
+    badge.classList.toggle("is-complete", isComplete);
+  }
+  const ctaLabel = card.querySelector(".specialization-cta-label");
+  if (ctaLabel) {
+    ctaLabel.textContent = isComplete ? "Repasar" : (started ? "Continuar" : "Empezar a aprender");
+  }
 }
 
 function buildCourseDirectoryCard(course, learningRecord) {
@@ -3479,7 +3547,7 @@ async function renderCourses() {
   const selectedSpecialization = getSpecializationMeta(activeSpecializationId);
   // Use activeSpecializationId as fallback instead of SPECIALIZATIONS[0].id
   // to prevent courses without explicit specializationId from being wrongly
-  // associated with the first specialization (Knowing SKYWORTH).
+  // associated with the first specialization (TV Basics).
   const specializationCourses = courses.filter((course) => (course.specializationId || activeSpecializationId) === activeSpecializationId && course.quizType !== "inline-quiz");
   console.log("[renderCourses] activeSpecializationId:", activeSpecializationId, "total courses:", courses.length, "filtered:", specializationCourses.length);
   specializationCourses.forEach(c => console.log("  course:", c.id, c.title, "specId:", c.specializationId, "hasMaterial:", !!c.material));
@@ -4216,106 +4284,7 @@ function resetMallItemEditor() {
   setMallItemSaveStatus("", "idle");
 }
 
-async function initKnowingSkyworthQuizzes() {
-  const btn = document.getElementById("initKnowingSkyworthQuizBtn");
-  if (!btn) return;
-  btn.disabled = true;
-  btn.textContent = "Initializing...";
-  try {
-    const allCourses = await getAll("courses");
-    const targetCourse = allCourses.find(c =>
-      c.specializationId === "company" &&
-      c.quizType !== "standalone-quiz" &&
-      c.quizType !== "inline-quiz"
-    );
-    if (!targetCourse) {
-      alert("No video course found in Knowing SKYWORTH. Please upload a video course first.");
-      btn.disabled = false;
-      btn.textContent = "Init Quiz for Knowing SKYWORTH";
-      return;
-    }
 
-    const existingQuizzes = allCourses.filter(c =>
-      c.quizType === "inline-quiz" && c.inlineTargetCourseId === targetCourse.id
-    );
-    if (existingQuizzes.length > 0) {
-      if (!confirm(`Found ${existingQuizzes.length} existing quiz(zes) for "${targetCourse.title}". Delete them and re-create?`)) {
-        btn.disabled = false;
-        btn.textContent = "Init Quiz for Knowing SKYWORTH";
-        return;
-      }
-      for (const q of existingQuizzes) {
-        await remove("courses", q.id);
-      }
-    }
-
-    const now = new Date().toISOString();
-    const quizzes = [
-      {
-        id: uid("course"),
-        specializationId: "company",
-        title: "Quiz - Brand Ranking",
-        quizType: "inline-quiz",
-        inlineTargetCourseId: targetCourse.id,
-        video: null,
-        material: null,
-        questions: [{
-          id: uid("q"), type: "single",
-          question: "SKYWORTH is the world's top ___ TV brand, serving more than ___ million households globally.",
-          options: ["A. 5; 400", "B. 3; 400", "C. 5; 300", "D. 3; 300"],
-          answer: 0
-        }],
-        createdAt: now, updatedAt: now
-      },
-      {
-        id: uid("course"),
-        specializationId: "company",
-        title: "Quiz - Founding & Global Reach",
-        quizType: "inline-quiz",
-        inlineTargetCourseId: targetCourse.id,
-        video: null,
-        material: null,
-        questions: [{
-          id: uid("q"), type: "single",
-          question: "SKYWORTH founded in ___ and its business spans more than ___ countries and regions, creating more than 400,000 jobs.",
-          options: ["A. 1990; 150", "B. 1988; 150", "C. 1988; 120", "D. 1990; 120"],
-          answer: 2
-        }],
-        createdAt: now, updatedAt: now
-      },
-      {
-        id: uid("course"),
-        specializationId: "company",
-        title: "Quiz - Company Introduction (Audio)",
-        quizType: "inline-quiz",
-        inlineTargetCourseId: targetCourse.id,
-        video: null,
-        material: null,
-        questions: [{
-          id: uid("q"), type: "audio",
-          question: "Briefly introduce SKYWORTH based on its corporate video.",
-          options: [],
-          answer: -1
-        }],
-        createdAt: now, updatedAt: now
-      }
-    ];
-
-    for (const quiz of quizzes) {
-      await put("courses", quiz);
-    }
-    btn.textContent = "✓ Done! Refreshing...";
-    await renderAdmin();
-    await renderCourses();
-    btn.textContent = "Init Quiz for Knowing SKYWORTH";
-    btn.disabled = false;
-  } catch (error) {
-    console.error(error);
-    alert("Failed: " + (error.message || "Unknown error"));
-    btn.disabled = false;
-    btn.textContent = "Init Quiz for Knowing SKYWORTH";
-  }
-}
 
 function loadMallItemIntoEditor(item) {
   setMallEditorMode(item);
@@ -5767,8 +5736,6 @@ if (els.mallItemForm) els.mallItemForm.addEventListener("submit", saveMallItem);
 if (els.cancelMallEditButton) els.cancelMallEditButton.addEventListener("click", resetMallItemEditor);
 if (els.prizeItemForm) els.prizeItemForm.addEventListener("submit", savePrizeItem);
 if (els.cancelPrizeEditButton) els.cancelPrizeEditButton.addEventListener("click", resetPrizeEditor);
-const initQuizBtn = document.getElementById("initKnowingSkyworthQuizBtn");
-if (initQuizBtn) initQuizBtn.addEventListener("click", initKnowingSkyworthQuizzes);
 els.addQuestionButton.addEventListener("click", () => addQuestionDraft("single"));
 els.questionBuilder.addEventListener("input", handleQuestionBuilderInput);
 els.questionBuilder.addEventListener("change", handleQuestionBuilderInput);
