@@ -1,191 +1,8 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ranking · SKYWORTH</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              display: ['"Plus Jakarta Sans"', "Inter", "system-ui", "sans-serif"],
-              sans: ['Inter', '"Plus Jakarta Sans"', "system-ui", "sans-serif"],
-            },
-            colors: {
-              primary: {
-                DEFAULT: "#1769E0",
-                50: "#EAF3FF",
-                100: "#D6E6FF",
-                200: "#A8CCFF",
-                500: "#1769E0",
-                600: "#0F58C9",
-                700: "#0B4499",
-              },
-              navy: {
-                DEFAULT: "#142B55",
-                700: "#142B55",
-                800: "#0E2042",
-                900: "#091632",
-              },
-              ink: {
-                DEFAULT: "#17233D",
-                soft: "#3A4A6B",
-              },
-              sub: "#667085",
-              line: "#E3EAF3",
-              bg: "#F6F8FC",
-              green: {
-                50: "#F1FAF5",
-                500: "#35A853",
-                600: "#2A8E45",
-              },
-              gold: "#F4B942",
-              silver: "#B8C0CC",
-              bronze: "#C77E4B",
-            },
-            boxShadow: {
-              card: "0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.05)",
-              "card-hover": "0 12px 28px rgba(15,23,42,.08), 0 2px 6px rgba(15,23,42,.04)",
-              ring: "0 0 0 1px rgba(15,23,42,.06)",
-              podium: "0 24px 48px rgba(23,105,224,.18)",
-            },
-          },
-        },
-      };
-    </script>
-
-    <style>
-      html, body { background: #F6F8FC; }
-      body {
-        font-family: "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
-        color: #17233D;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .display { font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; }
-
-      /* page accents */
-      .bg-dots {
-        background-image: radial-gradient(rgba(23,105,224,.07) 1px, transparent 1px);
-        background-size: 22px 22px;
-      }
-      .grain::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        opacity: .04;
-        mix-blend-mode: overlay;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-      }
-
-      /* podium confetti */
-      .confetti {
-        position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-      }
-      .confetti i {
-        position: absolute;
-        width: 4px; height: 4px; border-radius: 1px;
-        background: rgba(255,255,255,.55);
-        opacity: .6;
-        animation: float 5.6s linear infinite;
-      }
-      .confetti i:nth-child(odd)  { background: rgba(255,255,255,.4); }
-      .confetti i:nth-child(2n)   { background: rgba(244,185,66,.55); }
-      .confetti i:nth-child(3n)   { background: rgba(99,179,237,.55); }
-      @keyframes float {
-        0%   { transform: translateY(110%); opacity: 0; }
-        10%  { opacity: .55; }
-        90%  { opacity: .55; }
-        100% { transform: translateY(-110%); opacity: 0; }
-      }
-
-      /* slow rise on first paint */
-      @keyframes rise {
-        from { opacity: 0; transform: translateY(8px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-      .rise { animation: rise .5s ease-out both; }
-
-      /* dropdown enter / modal */
-      .fade { animation: fadeIn .15s ease-out both; }
-      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-      .pop  { animation: popIn .2s cubic-bezier(.2,.9,.3,1.2) both; }
-      @keyframes popIn { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
-
-      /* shimmer skeletons */
-      .skeleton {
-        background: linear-gradient(90deg, #EEF2F7 0%, #F7F9FC 50%, #EEF2F7 100%);
-        background-size: 200% 100%;
-        animation: shimmer 1.4s ease-in-out infinite;
-        border-radius: 8px;
-      }
-      @keyframes shimmer {
-        0%   { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
-      }
-
-      /* podium rings */
-      .ring-gold   { box-shadow: 0 0 0 3px #F4B942, 0 8px 24px rgba(244,185,66,.35); }
-      .ring-silver { box-shadow: 0 0 0 3px #C5CAD3, 0 8px 24px rgba(148,158,180,.35); }
-      .ring-bronze { box-shadow: 0 0 0 3px #C77E4B, 0 8px 24px rgba(199,126,75,.35); }
-      .ring-green  { box-shadow: 0 0 0 3px #35A853, 0 8px 24px rgba(53,168,83,.30); }
-
-      .scroll-shadow {
-        scrollbar-width: thin;
-        scrollbar-color: rgba(15,23,42,.18) transparent;
-      }
-      .scroll-shadow::-webkit-scrollbar { height: 6px; width: 6px; }
-      .scroll-shadow::-webkit-scrollbar-thumb { background: rgba(15,23,42,.18); border-radius: 999px; }
-
-      /* arrow micro-interaction on hover */
-      .group:hover .arrow-shift { transform: translateX(3px); }
-      .arrow-shift { transition: transform .2s ease; }
-
-      /* progress ribbon */
-      .ribbon-track {
-        background: rgba(255,255,255,.18);
-        height: 6px; border-radius: 999px; overflow: hidden;
-      }
-      .ribbon-fill {
-        background: linear-gradient(90deg, #6FA8FF 0%, #B5D2FF 100%);
-        height: 100%; border-radius: 999px; transition: width .6s ease;
-      }
-
-      .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-
-      /* CTA bars inside the podiums */
-      .cta-bar {
-        background: linear-gradient(180deg, rgba(20,43,85,.86), rgba(14,32,66,.94));
-        transition: background .2s ease;
-      }
-      .cta-bar:hover { background: linear-gradient(180deg, rgba(20,43,85,.94), rgba(14,32,66,1)); }
-      .green-cta {
-        background: linear-gradient(180deg, rgba(42,142,69,.92), rgba(32,108,53,.96));
-        transition: background .2s ease;
-      }
-      .green-cta:hover { background: linear-gradient(180deg, rgba(53,168,83,.96), rgba(38,123,60,1)); }
-    </style>
-  </head>
-
-  <body class="bg-bg">
-    <div id="root"></div>
-
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone@7.26.0/babel.min.js"></script>
-
-    <script type="text/babel" data-presets="react">
+/* =========================================================
+ * ranking.js — Ranking Dashboard React app.
+ * Loaded as <script type="text/babel" data-presets="react" src="./ranking.js?v=...">
+ * Exposes window.rankingApp = { mount, unmount, isMounted } for the SPA shell.
+ * ========================================================= */
       const { useEffect, useMemo, useRef, useState, useCallback } = React;
       const h = React.createElement;
 
@@ -1201,13 +1018,6 @@
         return h("div", { className: "min-h-screen bg-bg" },
           h("div", { className: "max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-10 pb-16" },
             h("div", { className: "flex items-center justify-between mb-6" },
-              h("a", {
-                href: "./index.html",
-                className: "inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-600 transition group",
-              },
-                h(Icon.ArrowUpRight, { width: 16, height: 16, className: "arrow-shift" }),
-                " Volver a SKYWORTH"
-              ),
               h("div", { className: "hidden sm:flex items-center gap-2 text-[11px] text-sub" },
                 h("span", { className: "w-2 h-2 rounded-full bg-green-500 animate-pulse" }),
                 " Datos en vivo"
@@ -1232,8 +1042,8 @@
                 })
               ),
               user && h(MyRanking, { user, onCTA: (k) => {
-                if (k === "learning") window.location.href = "./index.html#learn";
-                else if (k === "sales") window.location.href = "./index.html#sales";
+                if (k === "learning") { try { window.skyworthShowView && window.skyworthShowView("learn"); } catch (e) {} }
+                else if (k === "sales") { try { window.skyworthShowView && window.skyworthShowView("sales"); } catch (e) {} }
                 else setModal("action");
               } })
             ),
@@ -1248,7 +1058,31 @@
         );
       }
 
-      ReactDOM.createRoot(document.getElementById("root")).render(h(RankingPage));
-    </script>
-  </body>
-</html>
+
+      /* =====================================================================
+       *  MOUNT / UNMOUNT — integrate with the SPA shell.
+       *  The host page must:
+       *    1) include React + ReactDOM + Babel Standalone
+       *    2) load this file as a text/babel script
+       *    3) provide a <div id="rankingRoot"> inside <section id="ranking" class="view">
+       *    4) call window.rankingApp.mount(document.getElementById("rankingRoot"))
+       *       the first time the user switches to the ranking tab.
+       * ===================================================================== */
+      window.rankingApp = (function () {
+        var root = null;
+        return {
+          mount: function (container) {
+            if (root) return;
+            if (!container) return;
+            root = ReactDOM.createRoot(container);
+            root.render(h(RankingPage));
+          },
+          unmount: function () {
+            if (!root) return;
+            root.unmount();
+            root = null;
+          },
+          isMounted: function () { return !!root; }
+        };
+      })();
+

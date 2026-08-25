@@ -798,6 +798,28 @@ function showView(viewId) {
   }
   if (viewId === "sales") renderSalesRecords();
   if (viewId === "admin" && adminAuthenticated) renderAdmin();
+
+  // Mount the Ranking Dashboard React app lazily the first time the user
+  // switches to the ranking tab. Subsequent switches reuse the mounted root.
+  if (viewId === "ranking") {
+    try {
+      if (window.rankingApp && window.rankingApp.isMounted()) return;
+      const container = document.getElementById("rankingRoot");
+      if (!container) return;
+
+      const tryMount = () => {
+        if (window.rankingApp && !window.rankingApp.isMounted()) {
+          window.rankingApp.mount(container);
+        } else if (!window.rankingApp) {
+          // ranking.js is still being transformed by Babel Standalone
+          setTimeout(tryMount, 80);
+        }
+      };
+      tryMount();
+    } catch (e) {
+      console.error("[ranking] mount failed:", e);
+    }
+  }
 }
 
 function optionValue(label) {
@@ -3673,12 +3695,6 @@ function initLearningNavLinks() {
   navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       const view = link.dataset.view;
-      // External link (e.g. Ranking) -> let the browser navigate
-      if (view === "ranking") {
-        event.preventDefault();
-        window.location.href = link.getAttribute("href") || "./ranking.html";
-        return;
-      }
       event.preventDefault();
       if (!view) return;
       showView(view);
@@ -5909,3 +5925,30 @@ openDb()
 
 // ─── Initialize Announcement Button ───
 setupAnnouncementButton();
+
+// ─── Expose SPA shell APIs to embedded apps (e.g. ranking.js) ───
+// The Ranking Dashboard React app calls back into the shell when its
+// internal CTAs (e.g. "Continuar aprendiendo") need to switch the
+// active view without reloading the page.
+window.skyworthShowView = function (viewId) {
+  try { showView(viewId); } catch (e) { console.error("[shell] showView failed:", e); }
+};
+
+// ─── URL deep-link (?view=ranking) ───
+// Allows shareable links that land on a specific tab. Falls back gracefully
+// if the requested view doesn't exist or the shell isn't unlocked yet.
+try {
+  const params = new URLSearchParams(window.location.search);
+  const initialView = params.get("view");
+  if (initialView && document.querySelector('[data-view="' + initialView + '"]')) {
+    const tryJump = () => {
+      const shell = document.getElementById("appShell");
+      if (shell && shell.style.display !== "none") {
+        showView(initialView);
+      } else {
+        setTimeout(tryJump, 200);
+      }
+    };
+    setTimeout(tryJump, 400);
+  }
+} catch (e) { /* ignore */ }

@@ -7,8 +7,65 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css?v=20260825d" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css?v=20260825e" />
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <!-- Tailwind Play CDN (used by the embedded Ranking Dashboard React app only).
+         Preflight is disabled to avoid clobbering global element defaults
+         (button/heading/anchor) used by the rest of the SPA. -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+      window.tailwind = window.tailwind || {};
+      window.tailwind.config = {
+        corePlugins: { preflight: false },
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Plus Jakarta Sans"', "Inter", "system-ui", "sans-serif"],
+              sans: ['Inter', '"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+            },
+            colors: {
+              primary: {
+                DEFAULT: "#1769E0",
+                50: "#EAF3FF",
+                100: "#D6E6FF",
+                200: "#A8CCFF",
+                500: "#1769E0",
+                600: "#0F58C9",
+                700: "#0B4499",
+              },
+              navy: {
+                DEFAULT: "#142B55",
+                700: "#142B55",
+                800: "#0E2042",
+                900: "#091632",
+              },
+              ink: {
+                DEFAULT: "#17233D",
+                soft: "#3A4A6B",
+              },
+              sub: "#667085",
+              line: "#E3EAF3",
+              bg: "#F6F8FC",
+              green: {
+                50: "#F1FAF5",
+                500: "#35A853",
+                600: "#2A8E45",
+              },
+              gold: "#F4B942",
+              silver: "#B8C0CC",
+              bronze: "#C77E4B",
+            },
+            boxShadow: {
+              card: "0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.05)",
+              "card-hover": "0 12px 28px rgba(15,23,42,.08), 0 2px 6px rgba(15,23,42,.04)",
+              ring: "0 0 0 1px rgba(15,23,42,.06)",
+              podium: "0 24px 48px rgba(23,105,224,.18)",
+            },
+          },
+        },
+      };
+    </script>
   </head>
   <body>
     <div class="page-root">
@@ -89,7 +146,7 @@
             <button class="topbar-nav-link is-active" data-view="learn" type="button">Learning</button>
             <button class="topbar-nav-link" data-view="mall" type="button">Rewards Mall</button>
             <button class="topbar-nav-link" data-view="sales" type="button">Sales Records</button>
-            <a class="topbar-nav-link" data-view="ranking" href="./ranking.html">Ranking</a>
+            <button class="topbar-nav-link" data-view="ranking" type="button">Ranking</button>
             <button class="topbar-nav-link" data-view="admin" type="button">Admin</button>
           </nav>
           <div class="topbar-actions">
@@ -686,6 +743,16 @@
         </section>
         </div><!-- end adminContent -->
       </section>
+
+      <!-- ═══════════════════════════════════════════════
+           Ranking Dashboard — React app (loaded by ranking.js)
+           ═══════════════════════════════════════════════ -->
+      <section id="ranking" class="view" aria-label="Ranking Dashboard">
+        <div id="rankingRoot" class="rk-app-root">
+          <!-- React mounts the RankingPage component here the first time
+               the user switches to this tab. -->
+        </div>
+      </section>
     </main>
 
     <template id="courseTemplate">
@@ -735,7 +802,16 @@
       </div>
     </noscript>
 
-      <script src="./app.js?v=20260825d"></script>
+      <script src="./app.js?v=20260825e"></script>
     </div>
+
+    <!-- ═══════════════════════════════════════════════
+         Ranking Dashboard runtime
+         (React UMD + Babel Standalone + ranking.js)
+         ═══════════════════════════════════════════════ -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.26.0/babel.min.js"></script>
+    <script type="text/babel" data-presets="react" data-type="module" src="./ranking.js?v=20260825e"></script>
   </body>
 </html>
