@@ -2540,25 +2540,19 @@ function buildCourseDirectoryCard(course, learningRecord) {
     displayTitle = specMeta.videoTitle || course.title;
   }
 
-  // 构建内容类型标签（显示完成状态和进度）
+  // 构建内容类型标签（纯标签文字，不含进度或状态描述）
   const contentTypes = [];
   if (isStandaloneQuiz) {
-    // Standalone quiz: show quiz progress only
-    const completed = learningRecord.quizCompleted ? "✓" : "○";
-    contentTypes.push(`<span class="type-tag type-test">${completed} Test</span>`);
+    contentTypes.push(`<span class="type-tag type-test">TEST</span>`);
   } else {
     if (hasVideo) {
-      const completed = learningRecord.videoCompleted ? "✓" : "○";
-      const progress = learningRecord.videoProgress || 0;
-      contentTypes.push(`<span class="type-tag type-video">${completed} Video (${progress}%)</span>`);
+      contentTypes.push(`<span class="type-tag type-video">VIDEO</span>`);
     }
     if (hasCourseMaterial) {
-      const completed = learningRecord.materialViewed ? "✓" : "○";
-      contentTypes.push(`<span class="type-tag type-file">${completed} File</span>`);
+      contentTypes.push(`<span class="type-tag type-file">FILE</span>`);
     }
     if (hasCourseQuiz) {
-      const completed = learningRecord.quizCompleted ? "✓" : "○";
-      contentTypes.push(`<span class="type-tag type-test">${completed} Test</span>`);
+      contentTypes.push(`<span class="type-tag type-test">TEST</span>`);
     }
   }
 
