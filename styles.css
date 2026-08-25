@@ -6164,10 +6164,12 @@ body.intro-playing {
 #learn .specialization-grid .specialization-card {
   flex: 0 0 auto;
   width: 100%;
+  height: 176px;
   min-height: 0;
   aspect-ratio: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: stretch;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   background: #ffffff;
@@ -6196,21 +6198,30 @@ body.intro-playing {
 /* Card cover image */
 #learn .specialization-cover {
   position: relative;
-  width: 100%;
-  height: 200px;
+  width: 300px;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   flex-shrink: 0;
   display: block;
 }
 
-/* Card body */
+/* Card body: right-side info column */
+#learn .specialization-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 22px;
+}
 #learn .specialization-card .specialization-step {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: #0f172a;
   line-height: 1.3;
-  padding: 14px 16px 2px;
+  padding: 0;
   margin: 0;
   text-shadow: none;
   position: static;
@@ -6249,8 +6260,8 @@ body.intro-playing {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 10px 16px 12px;
-  margin-top: auto;
+  padding: 0;
+  margin-top: 0;
   position: static;
   z-index: auto;
 }
@@ -6300,17 +6311,18 @@ body.intro-playing {
 
 /* Primary action button at the bottom-right of the card */
 #learn .specialization-card .specialization-cta {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin: 4px 16px 16px;
-  padding: 10px 14px;
+  margin: 0;
+  padding: 9px 18px;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 700;
   color: #ffffff;
   background: #3b82f6;
+  align-self: flex-start;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 #learn .specialization-card:hover .specialization-cta {
@@ -6325,105 +6337,6 @@ body.intro-playing {
   font-size: 14px;
   line-height: 1;
   color: inherit;
-}
-
-/* ── Continue Learning Section ── */
-.learn-continue-section {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 10px clamp(20px, 4vw, 48px) 32px;
-}
-.learn-continue-section .learn-section-title {
-  margin-bottom: 14px;
-}
-.learn-continue-card {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 20px 24px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.03);
-  transition: box-shadow 0.2s, border-color 0.2s;
-}
-.learn-continue-card:hover {
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
-  border-color: #cbd5e1;
-}
-.learn-continue-thumb {
-  width: 120px;
-  height: 76px;
-  border-radius: 10px;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: #f1f5f9;
-}
-.learn-continue-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.learn-continue-info {
-  flex: 1;
-  min-width: 0;
-  display: grid;
-  gap: 8px;
-}
-.learn-continue-course-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.learn-continue-progress {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.learn-continue-progress-bar {
-  flex: 1;
-  height: 8px;
-  border-radius: 999px;
-  background: #e5e7eb;
-  overflow: hidden;
-  border: 1px solid #d1d5db;
-}
-.learn-continue-progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: #9ca3af;
-  transition: width 0.4s ease;
-}
-.learn-continue-progress-text {
-  font-size: 13px;
-  font-weight: 700;
-  color: #9ca3af;
-  flex-shrink: 0;
-}
-.learn-continue-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 40px;
-  padding: 0 20px;
-  border: 0;
-  border-radius: 10px;
-  background: #eff6ff;
-  color: #3b82f6;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-.learn-continue-btn:hover {
-  background: #dbeafe;
-  transform: translateY(-1px);
 }
 
 /* ── Learning page: hide old sky-hero inside #learn ── */
@@ -6445,26 +6358,11 @@ body.intro-playing {
     gap: 14px;
     padding-top: 24px;
   }
-  .learn-continue-card {
-    flex-wrap: wrap;
-    gap: 14px;
-  }
-  .learn-continue-thumb {
-    width: 100%;
-    height: 140px;
-  }
-  .learn-continue-info {
-    flex: 1 1 100%;
-    min-width: 100%;
-  }
-  .learn-continue-btn {
-    width: 100%;
-    justify-content: center;
-  }
   #learn .specialization-grid .specialization-card {
-    flex: 0 0 240px;
-    width: 240px;
-    min-height: 360px;
+    height: 150px;
+  }
+  #learn .specialization-cover {
+    width: 200px;
   }
   .topbar-nav-link {
     padding: 0 10px;
@@ -6488,9 +6386,6 @@ body.intro-playing {
   }
   .learn-categories-section {
     padding: 0 14px 16px;
-  }
-  .learn-continue-section {
-    padding: 10px 14px 24px;
   }
   .topbar-inner {
     padding: 0 8px;
@@ -6548,9 +6443,10 @@ body.intro-playing {
     height: 34px;
   }
   #learn .specialization-grid .specialization-card {
-    flex: 0 0 220px;
-    width: 220px;
-    min-height: 340px;
+    height: 150px;
+  }
+  #learn .specialization-cover {
+    width: 200px;
   }
   .mall-header {
     flex-direction: column;
@@ -6562,9 +6458,6 @@ body.intro-playing {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-  }
-  #learn .specialization-cover {
-    height: 130px;
   }
   /* Mobile: compact video layout — minimize all chrome above video */
   .specialization-detail {

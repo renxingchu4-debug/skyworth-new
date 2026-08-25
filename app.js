@@ -926,14 +926,10 @@ function toggleLearningDetail(open) {
     els.specializationOverview.hidden = open;
     els.specializationOverview.style.display = open ? "none" : "block";
   }
-  // New Learning page: toggle categories + continue section vs detail
+  // New Learning page: toggle categories vs detail
   const categoriesSection = document.querySelector(".learn-categories-section");
-  const continueSection = document.getElementById("learnContinueSection");
   if (categoriesSection) {
     categoriesSection.style.display = open ? "none" : "";
-  }
-  if (continueSection) {
-    continueSection.style.display = open ? "none" : "";
   }
   if (els.specializationDetail) {
     els.specializationDetail.hidden = !open;
@@ -2456,14 +2452,16 @@ function renderSpecializationCards(courses, ownRecords) {
       <button class="specialization-card" type="button" data-specialization="${specialization.id}">
         <span class="${badgeClass}">${badgeText}</span>
         <img class="specialization-cover" src="${escapeHtml(specialization.cover)}" alt="${escapeHtml(specialization.title)} cover" loading="lazy" />
-        <span class="specialization-step">${escapeHtml(specialization.title)}</span>
-        <div class="specialization-progress">
-          ${buildSpecMetricRows(videoPct, materialPct, quizPct)}
+        <div class="specialization-info">
+          <span class="specialization-step">${escapeHtml(specialization.title)}</span>
+          <div class="specialization-progress">
+            ${buildSpecMetricRows(videoPct, materialPct, quizPct)}
+          </div>
+          <span class="specialization-cta">
+            <span class="specialization-cta-label">${ctaLabel}</span>
+            <span class="specialization-cta-arrow">→</span>
+          </span>
         </div>
-        <span class="specialization-cta">
-          <span class="specialization-cta-label">${ctaLabel}</span>
-          <span class="specialization-cta-arrow">→</span>
-        </span>
       </button>
     `;
   }).join("");
@@ -2481,8 +2479,6 @@ function renderSpecializationCards(courses, ownRecords) {
 
   // Update carousel arrows visibility
   updateCarouselArrows();
-  // Update Continue Learning section
-  updateContinueLearning(courses, ownRecords);
 }
 
 // Update the progress bars in the specialization cards in real-time
@@ -3658,121 +3654,6 @@ function updateCarouselArrows() {
   if (rightBtn) {
     const maxScroll = track.scrollWidth - track.clientWidth;
     rightBtn.disabled = track.scrollLeft >= maxScroll - 2;
-  }
-}
-
-/* ── Continue Learning section ── */
-function updateContinueLearning(courses, ownRecords) {
-  const section = document.getElementById("learnContinueSection");
-  const titleEl = document.getElementById("continueCourseTitle");
-  const fillEl = document.getElementById("continueProgressFill");
-  const textEl = document.getElementById("continueProgressText");
-  const btnEl = document.getElementById("continueBtn");
-  if (!section || !titleEl || !fillEl || !textEl || !btnEl) return;
-
-  // Find the LAST WATCHED course based on updatedAt timestamp
-  let lastRecord = null;
-  let lastCourse = null;
-  let lastTime = "";
-
-  for (const record of ownRecords) {
-    // Only consider records that have been actually watched (videoProgress > 0)
-    if ((record.videoProgress || 0) <= 0 && !record.materialViewed) continue;
-    // Skip fully completed courses
-    if (record.quizCompleted && record.videoCompleted && record.materialViewed) continue;
-    // Find the most recently updated record
-    const updatedAt = record.updatedAt || "";
-    if (updatedAt > lastTime) {
-      lastTime = updatedAt;
-      lastRecord = record;
-    }
-  }
-
-  // If we found a recently watched record, try to match it to a real or virtual course
-  if (lastRecord) {
-    // Try to find matching course in DB first
-    let matchedCourse = courses.find((c) => c.id === lastRecord.courseId);
-
-    // If not found in DB, try to resolve as a virtual YouTube course
-    if (!matchedCourse) {
-      // Check if courseId matches the pattern specId__youtube__index
-      const ytMatch = lastRecord.courseId.match(/^(.+)__youtube__(\d+)$/);
-      if (ytMatch) {
-        const specId = ytMatch[1];
-        const ytIndex = parseInt(ytMatch[2], 10);
-        const specMeta = getSpecializationMeta(specId);
-        if (specMeta && specMeta.youtubeIds && specMeta.youtubeIds[ytIndex]) {
-          matchedCourse = {
-            id: lastRecord.courseId,
-            title: specMeta.youtubeIds[ytIndex].title || `Video ${ytIndex + 1}`,
-            specializationId: specId,
-            video: null,
-            material: null,
-            questions: [],
-            youtubeIndex: ytIndex
-          };
-        }
-      }
-      // Also try legacy pattern specId__youtube
-      if (!matchedCourse && lastRecord.courseId.endsWith("__youtube")) {
-        const specId = lastRecord.courseId.replace("__youtube", "");
-        const specMeta = getSpecializationMeta(specId);
-        if (specMeta && specMeta.youtubeId) {
-          matchedCourse = {
-            id: lastRecord.courseId,
-            title: specMeta.title || "YouTube Video",
-            specializationId: specId,
-            video: null,
-            material: null,
-            questions: []
-          };
-        }
-      }
-    }
-
-    if (matchedCourse) {
-      lastCourse = matchedCourse;
-    }
-  }
-
-  if (lastCourse && lastRecord) {
-    // Calculate aggregate progress
-    const hasVid = Boolean(lastCourse.video) || (typeof lastCourse.youtubeIndex === "number") || lastCourse.id.includes("__youtube");
-    const hasFile = hasMaterial(lastCourse);
-    const quizExists = hasQuiz(lastCourse);
-    let totalTracks = 0;
-    let trackSum = 0;
-    if (hasVid) { totalTracks++; trackSum += lastRecord.videoCompleted ? 100 : (lastRecord.videoProgress || 0); }
-    if (hasFile) { totalTracks++; trackSum += lastRecord.materialViewed ? 100 : 0; }
-    if (quizExists) { totalTracks++; trackSum += lastRecord.quizCompleted ? 100 : 0; }
-    const agg = totalTracks > 0 ? Math.round(trackSum / totalTracks) : 0;
-
-    section.style.display = "block";
-    // Use display title from specialization if it's a YouTube video
-    let displayTitle = lastCourse.title || "Continue your course";
-    if (typeof lastCourse.youtubeIndex === "number") {
-      const specMeta = getSpecializationMeta(lastCourse.specializationId || SPECIALIZATIONS[0].id);
-      if (specMeta && specMeta.youtubeIds && specMeta.youtubeIds[lastCourse.youtubeIndex]) {
-        displayTitle = specMeta.youtubeIds[lastCourse.youtubeIndex].title || displayTitle;
-      }
-    }
-    titleEl.textContent = displayTitle;
-    fillEl.style.width = agg + "%";
-    textEl.textContent = agg + "%";
-    btnEl.onclick = () => {
-      activeSpecializationId = lastCourse.specializationId || SPECIALIZATIONS[0].id;
-      activeCourseId = lastCourse.id;
-      toggleLearningDetail(true);
-      toggleCourseContentView(true);
-      renderCourses();
-      // scroll to detail view
-      const detailEl = document.getElementById("specializationDetail");
-      if (detailEl) {
-        detailEl.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    };
-  } else {
-    section.style.display = "none";
   }
 }
 
