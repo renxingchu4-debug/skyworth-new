@@ -3672,8 +3672,14 @@ function initLearningNavLinks() {
   const navLinks = document.querySelectorAll(".topbar-nav-link");
   navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
-      event.preventDefault();
       const view = link.dataset.view;
+      // External link (e.g. Ranking) -> let the browser navigate
+      if (view === "ranking") {
+        event.preventDefault();
+        window.location.href = link.getAttribute("href") || "./ranking.html";
+        return;
+      }
+      event.preventDefault();
       if (!view) return;
       showView(view);
     });
