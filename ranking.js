@@ -401,10 +401,10 @@
             className: "absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full opacity-60 blur-3xl pointer-events-none",
             style: { background: "radial-gradient(circle, rgba(244,185,66,.55), transparent 60%)" },
           }),
-          h("div", { className: "relative grid grid-cols-3 gap-3 items-end pt-12" },
-            h(PodiumSlot, { rank: 2, item: p2, unit, height: 92, avatarRing: palette.silverRing, podiumColor: "#C5CAD3", podiumNumber: "#475569", crown: true, crownSize: 48, crownLift: 18 }),
-            h(PodiumSlot, { rank: 1, item: p1, unit, height: 132, avatarRing: palette.goldRing, podiumColor: palette.barColor, podiumNumber: "#FFFFFF", crown: true, crownSize: 72, crownLift: 28 }),
-            h(PodiumSlot, { rank: 3, item: p3, unit, height: 68, avatarRing: palette.bronzeRing, podiumColor: "#C77E4B", podiumNumber: "#FFFFFF", crown: true, crownSize: 42, crownLift: 16 })
+          h("div", { className: "relative grid grid-cols-3 gap-3 items-end pt-24" },
+            h(PodiumSlot, { rank: 2, item: p2, unit, height: 92, avatarRing: palette.silverRing, podiumColor: "#C5CAD3", podiumNumber: "#475569", crown: true, crownSize: 48, crownLift: 56 }),
+            h(PodiumSlot, { rank: 1, item: p1, unit, height: 132, avatarRing: palette.goldRing, podiumColor: palette.barColor, podiumNumber: "#FFFFFF", crown: true, crownSize: 72, crownLift: 74 }),
+            h(PodiumSlot, { rank: 3, item: p3, unit, height: 68, avatarRing: palette.bronzeRing, podiumColor: "#C77E4B", podiumNumber: "#FFFFFF", crown: true, crownSize: 42, crownLift: 52 })
           ),
           h("div", {
             className: cn(
