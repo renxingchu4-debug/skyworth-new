@@ -210,10 +210,17 @@ async function createTables() {
   `;
   const { error } = await supabase.rpc("exec_sql", { sql });
   if (error) {
-    // exec_sql may not be available — try creating tables one by one via REST
-    console.warn("Could not create tables via RPC, will create on first write:", error.message);
+    // exec_sql may not be available — fall back to creating tables by attempting inserts (PostgREST will return PGRST205 for missing tables)
+    console.warn("[Supabase] Could not create tables via RPC (exec_sql function not found).");
+    console.warn("[Supabase] Will try creating each table on first write attempt.");
+    console.warn("[Supabase] If registration keeps failing, run this SQL once in the Supabase SQL Editor:");
+    console.warn("SQL_START");
+    // Extract the DDL portion of `sql` so users can copy-paste it directly
+    const ddl = sql.split(";\n").map((s) => s.trim()).filter((s) => s.startsWith("CREATE") || s.startsWith("ALTER")).join(";\n");
+    console.warn(ddl);
+    console.warn("SQL_END");
   } else {
-    console.log("Supabase tables created successfully.");
+    console.log("[Supabase] Tables created successfully via RPC.");
   }
 }
 
@@ -365,12 +372,22 @@ async function createViews() {
 // Ensure a table exists by attempting an insert with a dummy then deleting it
 async function ensureTable(tableName) {
   if (!supabase) return;
+  // First, probe whether the table exists by attempting a lightweight select
+  const { error: probeError } = await supabase.from(tableName).select("id").limit(1);
+  if (probeError && (probeError.code === "42P01" || probeError.code === "PGRST205")) {
+    const message = `Supabase table "${tableName}" does not exist. Please run the SQL init script in your Supabase SQL Editor.`;
+    console.error("[Supabase]", message, "| code:", probeError.code);
+    const err = new Error(message);
+    err.code = probeError.code;
+    throw err;
+  }
+  // Table exists — run a dummy write to verify write access (no-op on existing rows)
   try {
     const dummyId = `__table_init_${Date.now()}`;
     await supabase.from(tableName).upsert({ id: dummyId, data: {} });
     await supabase.from(tableName).delete().eq("id", dummyId);
   } catch (_) {
-    // Table might already exist, that's fine
+    // Ignore secondary write/delete failures; primary probe says table is present
   }
 }
 
