@@ -2457,7 +2457,6 @@ function renderSpecializationCards(courses, ownRecords) {
         <span class="${badgeClass}">${badgeText}</span>
         <img class="specialization-cover" src="${escapeHtml(specialization.cover)}" alt="${escapeHtml(specialization.title)} cover" loading="lazy" />
         <span class="specialization-step">${escapeHtml(specialization.title)}</span>
-        <span class="specialization-desc">${escapeHtml(specialization.description)}</span>
         <div class="specialization-progress">
           ${buildSpecMetricRows(videoPct, materialPct, quizPct)}
         </div>
@@ -2540,19 +2539,25 @@ function buildCourseDirectoryCard(course, learningRecord) {
     displayTitle = specMeta.videoTitle || course.title;
   }
 
-  // 构建内容类型标签（纯标签文字，不含进度或状态描述）
+  // 构建内容类型标签（显示完成状态和进度）
   const contentTypes = [];
   if (isStandaloneQuiz) {
-    contentTypes.push(`<span class="type-tag type-test">TEST</span>`);
+    // Standalone quiz: show quiz progress only
+    const completed = learningRecord.quizCompleted ? "✓" : "○";
+    contentTypes.push(`<span class="type-tag type-test">${completed} Test</span>`);
   } else {
     if (hasVideo) {
-      contentTypes.push(`<span class="type-tag type-video">VIDEO</span>`);
+      const completed = learningRecord.videoCompleted ? "✓" : "○";
+      const progress = learningRecord.videoProgress || 0;
+      contentTypes.push(`<span class="type-tag type-video">${completed} Video (${progress}%)</span>`);
     }
     if (hasCourseMaterial) {
-      contentTypes.push(`<span class="type-tag type-file">FILE</span>`);
+      const completed = learningRecord.materialViewed ? "✓" : "○";
+      contentTypes.push(`<span class="type-tag type-file">${completed} File</span>`);
     }
     if (hasCourseQuiz) {
-      contentTypes.push(`<span class="type-tag type-test">TEST</span>`);
+      const completed = learningRecord.quizCompleted ? "✓" : "○";
+      contentTypes.push(`<span class="type-tag type-test">${completed} Test</span>`);
     }
   }
 
