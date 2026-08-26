@@ -11,19 +11,19 @@ const SPECIALIZATIONS = [
     id: "tv-basics",
     title: "01. TV Basics",
     description: "Fundamentos de pantallas y televisores.",
-    cover: "./assets/images/course-tv-basics.jpg"
+    cover: "./assets/images/courses/tv-basics.png"
   },
   {
     id: "product-training",
     title: "02. Product Training",
     description: "Características y argumentos de venta.",
-    cover: "./assets/images/course-product-training.jpg"
+    cover: "./assets/images/courses/product-training.jpg"
   },
   {
     id: "tv-operations",
     title: "03. TV Operation Steps",
     description: "Pasos de instalación y demostración.",
-    cover: "./assets/images/course-operation-steps.jpg",
+    cover: "./assets/images/courses/tv-operation-steps.jpg",
     youtubeIds: [
       { id: "pxLp7vQ-25w", title: "Ayuda visual" },
       { id: "34kOHuVG01I", title: "Asistente de tienda" },
