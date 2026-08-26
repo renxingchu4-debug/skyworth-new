@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css?v=20260825f" />
+    <link rel="stylesheet" href="./learning-v2.css?v=20260826" />
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <!-- Tailwind Play CDN (used by the embedded Ranking Dashboard React app only).
          Preflight is disabled to avoid clobbering global element defaults
@@ -161,102 +162,65 @@
       </header>
 
     <main>
-      <section id="learn" class="view is-active">
-        <!-- Top Building Banner -->
-        <div class="sales-banner">
-          <img src="./skyworth-hq-hero.jpg" alt="SKYWORTH Building" class="sales-banner-img" />
-          <div class="sales-banner-overlay"></div>
-          <div class="sales-banner-content">
-            <div class="sales-banner-title-row">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="sales-banner-icon">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/>
-              </svg>
-              <h1 class="sales-banner-title">Learning Center</h1>
-            </div>
-            <p class="sales-banner-subtitle">Explore courses and level up your product knowledge</p>
-          </div>
-        </div>
-        <!-- Profile Bar -->
-        <div class="sales-profile-bar">
-          <div class="sales-profile-left">
-            <div class="sales-profile-avatar" id="learnProfileInitial">U</div>
-            <div class="sales-profile-info">
-              <strong id="learnIdentityName">Not registered</strong>
-              <small id="learnIdentityMeta">Register to start learning</small>
+      <section id="learn" class="view is-active learning-center-v2">
+        <section class="learning-hero-v2">
+          <div class="learning-hero-glow"></div>
+          <div class="learning-hero-copy">
+            <span class="learning-kicker">PANASONIC TV PRODUCT TRAINING</span>
+            <h1>Learn the product.<br /><em>Lead the sale.</em></h1>
+            <p>Build confident product knowledge through guided courses, practical resources and real-world selling skills.</p>
+            <div class="learning-hero-actions">
+              <a href="#learning-catalog" class="learning-hero-cta">Explore courses <span>↗</span></a>
+              <span class="learning-hero-note"><strong>Learn</strong> · Practice · Sell · Improve</span>
             </div>
           </div>
-          <div class="sales-profile-right">
-            <button id="switchUserButton" class="learn-switch-btn" type="button" style="margin-top:2px;">Switch User</button>
-          </div>
-        </div>
-
-        <!-- Course Categories Section -->
-        <section class="learn-categories-section">
-          <div class="learn-section-header">
-            <h2 class="learn-section-title">Categories</h2>
-            <div class="learn-section-actions">
-              <select class="learn-filter-select" id="categoryFilter">
-                <option value="all">All Courses</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Scrollable course cards with arrows -->
-          <div class="learn-carousel-wrapper">
-            <button class="learn-carousel-arrow learn-carousel-left" id="carouselLeft" type="button" aria-label="Scroll left">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <div class="learn-carousel-track" id="learnCarouselTrack">
-              <div id="specializationGrid" class="specialization-grid"></div>
-            </div>
-            <button class="learn-carousel-arrow learn-carousel-right" id="carouselRight" type="button" aria-label="Scroll right">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
+          <div class="learning-tv-art" aria-hidden="true">
+            <div class="learning-tv-screen"><span>4K OLED</span><strong>MASTER<br />THE<br />DETAIL</strong></div>
+            <div class="learning-tv-stand"></div>
+            <div class="learning-tv-floor"></div>
           </div>
         </section>
 
-        <!-- Course Detail View (hidden by default) -->
-        <section id="specializationDetail" class="specialization-detail" hidden>
-          <div class="panel-title detail-title">
-            <div class="detail-head">
-              <div class="detail-head-info">
-                <h3 id="specializationTitle">01. TV Basics</h3>
-                <p id="specializationDescription" class="detail-copy">Course directory and progress.</p>
-              </div>
-              <div class="detail-head-actions">
-                <span id="specializationCount" class="status-pill">0 Items</span>
-                <button id="backToTracksButton" class="secondary-btn" type="button">Back to Courses</button>
-              </div>
-            </div>
+        <section class="learning-profile-v2">
+          <div class="learning-profile-main">
+            <div class="learning-avatar-v2" id="learnProfileInitial">U</div>
+            <div><strong id="learnIdentityName">Not registered</strong><span id="learnIdentityMeta">Register to start learning</span></div>
           </div>
-          <div id="courseCatalogView" class="course-catalog-view">
-            <div id="courseCatalogList" class="course-catalog-list empty-state">No courses yet.</div>
-            <div id="courseFileList" class="course-file-list" hidden>
-              <h4 class="course-file-list-title">Learning Materials</h4>
-              <div id="courseFileListContent" class="course-file-list-content"></div>
-            </div>
-          </div>
-          <div id="courseContentView" class="course-content-view" hidden>
-            <div class="yt-player-layout">
-              <!-- Left: Video Player -->
-              <div class="yt-player-main">
-                <div id="courseList" class="course-list"></div>
-              </div>
-              <!-- Right: Sidebar (other courses + quiz) -->
-              <div class="yt-player-sidebar">
-                <div class="yt-sidebar-section">
-                  <h4 class="yt-sidebar-title">More in this Course</h4>
-                  <div id="ytSidebarCourses" class="yt-sidebar-list"></div>
-                </div>
-                <div class="yt-sidebar-section">
-                  <h4 class="yt-sidebar-title">Quiz</h4>
-                  <div id="ytSidebarQuiz" class="yt-sidebar-quiz"></div>
-                </div>
-              </div>
-            </div>
+          <div class="learning-profile-stats">
+            <div><small>Learning status</small><strong>Active learner</strong></div>
+            <div><small>Available points</small><strong id="learnPointsDisplay">0</strong></div>
+            <button id="switchUserButton" type="button" class="learning-switch-v2">Switch user</button>
           </div>
         </section>
 
+        <div class="learning-main-v2" id="learning-catalog">
+          <section class="learning-section-v2 learn-categories-section">
+            <div class="learning-section-head-v2">
+              <div><span class="learning-eyebrow">BUILD YOUR EDGE</span><h2>Course library</h2><p>Structured knowledge for every Panasonic TV conversation.</p></div>
+              <label class="learning-filter-wrap"><span>Filter</span><select id="categoryFilter" class="learn-filter-select"><option value="all">All Courses</option></select></label>
+            </div>
+            <div class="learning-carousel-v2">
+              <button class="learning-arrow-v2" id="carouselLeft" type="button" aria-label="Scroll left">←</button>
+              <div class="learn-carousel-track" id="learnCarouselTrack"><div id="specializationGrid" class="specialization-grid"></div></div>
+              <button class="learning-arrow-v2" id="carouselRight" type="button" aria-label="Scroll right">→</button>
+            </div>
+          </section>
+
+          <section class="learning-continue-v2 learn-continue-section" id="learnContinueSection">
+            <div class="learning-continue-label"><span class="learning-eyebrow">PICK UP WHERE YOU LEFT OFF</span><h2>Continue learning</h2></div>
+            <div class="learn-continue-card" id="learnContinueCard">
+              <div class="learning-continue-mark">P</div>
+              <div class="learn-continue-info"><h3 class="learn-continue-course-title" id="continueCourseTitle">Your next lesson</h3><div class="learn-continue-progress"><div class="learn-continue-progress-bar"><div class="learn-continue-progress-fill" id="continueProgressFill" style="width:0%"></div></div><span class="learn-continue-progress-text" id="continueProgressText">0%</span></div></div>
+              <button class="learn-continue-btn" id="continueBtn" type="button">Resume <span>→</span></button>
+            </div>
+          </section>
+
+          <section id="specializationDetail" class="specialization-detail learning-detail-v2" hidden>
+            <div class="learning-detail-head"><div><span class="learning-eyebrow">LEARNING PATH</span><h2 id="specializationTitle">Course detail</h2><p id="specializationDescription">Course directory and progress.</p></div><div><span id="specializationCount" class="status-pill">0 Items</span><button id="backToTracksButton" class="learning-back-v2" type="button">← All courses</button></div></div>
+            <div id="courseCatalogView" class="course-catalog-view"><div id="courseCatalogList" class="course-catalog-list empty-state">No courses yet.</div><div id="courseFileList" class="course-file-list" hidden><h4 class="course-file-list-title">Learning materials</h4><div id="courseFileListContent" class="course-file-list-content"></div></div></div>
+            <div id="courseContentView" class="course-content-view" hidden><div class="yt-player-layout"><div class="yt-player-main"><div id="courseList" class="course-list"></div></div><aside class="yt-player-sidebar"><div class="yt-sidebar-section"><h4 class="yt-sidebar-title">More in this course</h4><div id="ytSidebarCourses" class="yt-sidebar-list"></div></div><div class="yt-sidebar-section"><h4 class="yt-sidebar-title">Quiz</h4><div id="ytSidebarQuiz" class="yt-sidebar-quiz"></div></div></aside></div></div>
+          </section>
+        </div>
       </section>
 
       <section id="mall" class="view">
