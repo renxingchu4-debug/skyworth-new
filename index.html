@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css?v=20260825f" />
     <link rel="stylesheet" href="./learning-v2.css?v=20260826" />
+    <link rel="stylesheet" href="./learning-v3.css?v=20260826" />
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <!-- Tailwind Play CDN (used by the embedded Ranking Dashboard React app only).
          Preflight is disabled to avoid clobbering global element defaults
@@ -77,46 +78,45 @@
 
         <header class="intro-nav">
           <div class="intro-brand">
-            <span class="intro-brand-text">SKYWORTH</span>
+            <span class="intro-brand-text">Panasonic</span>
             <span class="intro-brand-dot" aria-hidden="true"></span>
           </div>
           <nav class="intro-links" aria-label="Intro navigation">
-            <span>Learning</span>
-            <span>Sales Record</span>
-            <span>Point Shop</span>
+            <span>Aprender</span>
+            <span>Historial de Ventas</span>
+            <span>Ranking</span>
           </nav>
 
         </header>
         <div class="intro-content">
           <h1>
-            <span class="intro-word">Welcome</span>
-            <span class="intro-word">to</span>
-            <span class="intro-word intro-word-accent">SKYWORTH</span>
+            <span class="intro-word">Bienvenido</span>
+            <span class="intro-word">a</span>
+            <span class="intro-word intro-word-accent">Panasonic</span>
           </h1>
           <p class="intro-tagline">
-            <span class="tagline-word">Intelligent</span>
-            <span class="tagline-word">Sales</span>
-            <span class="tagline-word">&amp;</span>
-            <span class="tagline-word">Training</span>
-            <span class="tagline-word">Platform</span>
+            <span class="tagline-word">Capacitación</span>
+            <span class="tagline-word">de</span>
+            <span class="tagline-word">Productos</span>
+            <span class="tagline-word">de TV</span>
           </p>
           <button class="intro-primary-button" type="button">
             <span>Enter Platform</span>
             <span class="btn-shimmer" aria-hidden="true"></span>
           </button>
         </div>
-        <p class="intro-footnote">Empower every sale with knowledge. Earn rewards as you grow.</p>
+        <p class="intro-footnote">Aprende, practica y fortalece cada venta.</p>
       </section>
 
       <section id="registrationGate" class="registration-gate">
         <article class="registration-card">
-          <span class="eyebrow">Account Setup</span>
-          <h2>Register</h2>
-          <p>One profile for learning and rewards.</p>
+          <span class="eyebrow">Configuración de cuenta</span>
+          <h2>Crear perfil</h2>
+          <p>Un perfil para tu aprendizaje.</p>
           <form id="registrationForm" class="form-stack">
             <label>
               <span>Full Name</span>
-              <input id="registerName" required placeholder="Enter your full name" />
+              <input id="registerName" required placeholder="Escribe tu nombre completo" />
             </label>
             <label>
               <span>Province</span>
@@ -142,84 +142,48 @@
       <!-- Unified top navigation bar -->
       <header class="topbar-light" id="topbarLight">
         <div class="topbar-inner">
-          <div class="topbar-brand">SKYWORTH</div>
-          <nav class="topbar-nav" aria-label="Main navigation">
-            <button class="topbar-nav-link is-active" data-view="learn" type="button">Learning</button>
-            <button class="topbar-nav-link" data-view="mall" type="button">Rewards Mall</button>
-            <button class="topbar-nav-link" data-view="sales" type="button">Sales Records</button>
+          <div class="topbar-brand">Panasonic</div>
+          <nav class="topbar-nav" aria-label="Navegación principal">
+            <button class="topbar-nav-link is-active" data-view="learn" type="button">Aprender</button>
             <button class="topbar-nav-link" data-view="ranking" type="button">Ranking</button>
-            <button class="topbar-nav-link" data-view="admin" type="button">Admin</button>
+            <button class="topbar-nav-link" data-view="sales" type="button">Historial de Ventas</button>
+            <button class="topbar-nav-link" data-view="admin" type="button">Administrador</button>
           </nav>
           <div class="topbar-actions">
-            <button class="topbar-icon-btn" id="notifyBellBtn" aria-label="Notifications" type="button">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <button class="topbar-icon-btn learning-bell-v3" id="notifyBellBtn" aria-label="Notificaciones" type="button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><i></i>
             </button>
-            <div class="topbar-avatar" aria-label="User menu">
-              <span id="topbarAvatarInitial">U</span>
-            </div>
           </div>
         </div>
       </header>
 
     <main>
-      <section id="learn" class="view is-active learning-center-v2">
-        <section class="learning-hero-v2">
-          <div class="learning-hero-glow"></div>
-          <div class="learning-hero-copy">
+      <section id="learn" class="view is-active learning-center-v3">
+        <section class="learning-hero-v3">
+          <div class="learning-hero-v3-copy">
             <span class="learning-kicker">PANASONIC TV PRODUCT TRAINING</span>
-            <h1>Learn the product.<br /><em>Lead the sale.</em></h1>
-            <p>Build confident product knowledge through guided courses, practical resources and real-world selling skills.</p>
-            <div class="learning-hero-actions">
-              <a href="#learning-catalog" class="learning-hero-cta">Explore courses <span>↗</span></a>
-              <span class="learning-hero-note"><strong>Learn</strong> · Practice · Sell · Improve</span>
-            </div>
+            <h1>Capacitación de<br /><em>Productos de TV</em></h1>
+            <p>Aprende las características del producto, argumentos de venta y pasos de instalación.</p>
+            <div class="learning-user-chip"><div class="learning-avatar-v3" id="learnProfileInitial">U</div><strong id="learnIdentityName">María González</strong><span>│</span><span id="learnIdentityMeta">Bogotá, Colombia · Tienda Centro</span></div>
+            <form class="learning-search-v3" id="learningSearchForm"><span aria-hidden="true">⌕</span><input id="learningSearchInput" type="search" placeholder="Buscar cursos, palabras clave, conocimientos de productos" /><button type="submit" aria-label="Buscar">⌕</button></form>
+            <div id="learningSearchEmpty" class="learning-search-empty" hidden>No se encontraron cursos<br /><small>Intenta con otra palabra clave.</small></div>
           </div>
-          <div class="learning-tv-art" aria-hidden="true">
-            <div class="learning-tv-screen"><span>4K OLED</span><strong>MASTER<br />THE<br />DETAIL</strong></div>
-            <div class="learning-tv-stand"></div>
-            <div class="learning-tv-floor"></div>
-          </div>
+          <div class="learning-hero-image-v3"><img src="./assets/images/panasonic-tv-hero.jpg" alt="Sala con televisor Panasonic" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" /><span>Recurso: /assets/images/panasonic-tv-hero.jpg</span></div>
         </section>
-
-        <section class="learning-profile-v2">
-          <div class="learning-profile-main">
-            <div class="learning-avatar-v2" id="learnProfileInitial">U</div>
-            <div><strong id="learnIdentityName">Not registered</strong><span id="learnIdentityMeta">Register to start learning</span></div>
-          </div>
-          <div class="learning-profile-stats">
-            <div><small>Learning status</small><strong>Active learner</strong></div>
-            <div><small>Available points</small><strong id="learnPointsDisplay">0</strong></div>
-            <button id="switchUserButton" type="button" class="learning-switch-v2">Switch user</button>
-          </div>
-        </section>
-
-        <div class="learning-main-v2" id="learning-catalog">
-          <section class="learning-section-v2 learn-categories-section">
-            <div class="learning-section-head-v2">
-              <div><span class="learning-eyebrow">BUILD YOUR EDGE</span><h2>Course library</h2><p>Structured knowledge for every Panasonic TV conversation.</p></div>
-              <label class="learning-filter-wrap"><span>Filter</span><select id="categoryFilter" class="learn-filter-select"><option value="all">All Courses</option></select></label>
-            </div>
-            <div class="learning-carousel-v2">
-              <button class="learning-arrow-v2" id="carouselLeft" type="button" aria-label="Scroll left">←</button>
-              <div class="learn-carousel-track" id="learnCarouselTrack"><div id="specializationGrid" class="specialization-grid"></div></div>
-              <button class="learning-arrow-v2" id="carouselRight" type="button" aria-label="Scroll right">→</button>
-            </div>
+        <div class="learning-main-v3">
+          <section class="learning-column-v3 learning-continue-column">
+            <div class="learning-panel-heading"><h2>Continuar Aprendiendo</h2></div>
+            <article class="learning-continue-card-v3" id="learnContinueCard"><div class="learning-course-image-v3"><img src="./assets/images/tv-basics.jpg" alt="TV Basics" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" /></div><div class="learning-card-body-v3"><h3 id="continueCourseTitle">TV Basics</h3><span class="learning-status-v3 status-progress">En Progreso</span><div class="learning-progress-line"><span id="continueProgressFill" style="width:65%"></span></div><div class="learning-progress-meta"><b id="continueProgressText">65%</b></div><button class="learning-primary-v3 learn-continue-btn" id="continueBtn" type="button">Continuar Aprendiendo <span>→</span></button></div></article>
           </section>
-
-          <section class="learning-continue-v2 learn-continue-section" id="learnContinueSection">
-            <div class="learning-continue-label"><span class="learning-eyebrow">PICK UP WHERE YOU LEFT OFF</span><h2>Continue learning</h2></div>
-            <div class="learn-continue-card" id="learnContinueCard">
-              <div class="learning-continue-mark">P</div>
-              <div class="learn-continue-info"><h3 class="learn-continue-course-title" id="continueCourseTitle">Your next lesson</h3><div class="learn-continue-progress"><div class="learn-continue-progress-bar"><div class="learn-continue-progress-fill" id="continueProgressFill" style="width:0%"></div></div><span class="learn-continue-progress-text" id="continueProgressText">0%</span></div></div>
-              <button class="learn-continue-btn" id="continueBtn" type="button">Resume <span>→</span></button>
-            </div>
+          <section class="learning-column-v3 learning-courses-column learn-categories-section">
+            <div class="learning-panel-heading learning-courses-heading"><div><h2>Cursos</h2><p>Desarrolla el conocimiento que impulsa cada venta.</p></div><label class="learning-filter-v3"><span>Filtrar</span><select id="categoryFilter"><option value="all">Todos los cursos</option></select></label></div>
+            <div class="learning-course-grid-v3" id="learnCarouselTrack"><div id="specializationGrid" class="specialization-grid"></div></div>
+            <div class="learning-search-results-v3" id="learningSearchResults" hidden></div>
           </section>
-
-          <section id="specializationDetail" class="specialization-detail learning-detail-v2" hidden>
-            <div class="learning-detail-head"><div><span class="learning-eyebrow">LEARNING PATH</span><h2 id="specializationTitle">Course detail</h2><p id="specializationDescription">Course directory and progress.</p></div><div><span id="specializationCount" class="status-pill">0 Items</span><button id="backToTracksButton" class="learning-back-v2" type="button">← All courses</button></div></div>
-            <div id="courseCatalogView" class="course-catalog-view"><div id="courseCatalogList" class="course-catalog-list empty-state">No courses yet.</div><div id="courseFileList" class="course-file-list" hidden><h4 class="course-file-list-title">Learning materials</h4><div id="courseFileListContent" class="course-file-list-content"></div></div></div>
-            <div id="courseContentView" class="course-content-view" hidden><div class="yt-player-layout"><div class="yt-player-main"><div id="courseList" class="course-list"></div></div><aside class="yt-player-sidebar"><div class="yt-sidebar-section"><h4 class="yt-sidebar-title">More in this course</h4><div id="ytSidebarCourses" class="yt-sidebar-list"></div></div><div class="yt-sidebar-section"><h4 class="yt-sidebar-title">Quiz</h4><div id="ytSidebarQuiz" class="yt-sidebar-quiz"></div></div></aside></div></div>
+          <section class="learning-column-v3 learning-community-column">
+            <div class="learning-panel-heading learning-community-heading"><h2>Publicaciones y Discusiones</h2><button id="newPostButton" class="learning-outline-v3" type="button">+ Nueva Publicación</button></div><div id="postList" class="learning-post-list-v3"></div><button id="viewAllPostsButton" class="learning-view-all-v3" type="button">Ver todas las publicaciones <span>→</span></button>
           </section>
+          <section class="learning-detail-v3" id="specializationDetail" hidden><div class="learning-detail-head"><div><span class="learning-eyebrow">RUTA DE APRENDIZAJE</span><h2 id="specializationTitle">Curso</h2><p id="specializationDescription">Contenido del curso.</p></div><div><span id="specializationCount" class="status-pill">0 Elementos</span><button id="backToTracksButton" class="learning-back-v2" type="button">← Todos los cursos</button></div></div><div id="courseCatalogView" class="course-catalog-view"><div id="courseCatalogList" class="course-catalog-list empty-state">No hay cursos disponibles.</div><div id="courseFileList" class="course-file-list" hidden><h4 class="course-file-list-title">Materiales de aprendizaje</h4><div id="courseFileListContent" class="course-file-list-content"></div></div></div><div id="courseContentView" class="course-content-view" hidden><div class="yt-player-layout"><div class="yt-player-main"><div id="courseList" class="course-list"></div></div><aside class="yt-player-sidebar"><div class="yt-sidebar-section"><h4 class="yt-sidebar-title">Más en este curso</h4><div id="ytSidebarCourses" class="yt-sidebar-list"></div></div><div class="yt-sidebar-section"><h4 class="yt-sidebar-title">Evaluación</h4><div id="ytSidebarQuiz" class="yt-sidebar-quiz"></div></div></aside></div></div></section>
         </div>
       </section>
 
@@ -767,6 +731,7 @@
     </noscript>
 
       <script src="./app.js?v=20260825e"></script>
+      <script src="./learning-v3.js?v=20260826"></script>
     </div>
 
     <!-- ═══════════════════════════════════════════════

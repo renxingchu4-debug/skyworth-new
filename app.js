@@ -10,32 +10,26 @@ const SPECIALIZATIONS = [
   {
     id: "tv-basics",
     title: "01. TV Basics",
-    description: "Display and TV fundamentals.",
-    cover: "./course-cover-2-tv-basic.png"
+    description: "Fundamentos de pantallas y televisores.",
+    cover: "./assets/images/course-tv-basics.jpg"
   },
   {
     id: "product-training",
     title: "02. Product Training",
-    description: "Product features and selling points.",
-    cover: "./course-cover-3-product-training.png"
+    description: "Características y argumentos de venta.",
+    cover: "./assets/images/course-product-training.jpg"
   },
   {
     id: "tv-operations",
     title: "03. TV Operation Steps",
-    description: "Setup and demo steps.",
-    cover: "./course-cover-4-tv-operation-steps.png",
+    description: "Pasos de instalación y demostración.",
+    cover: "./assets/images/course-operation-steps.jpg",
     youtubeIds: [
-      { id: "pxLp7vQ-25w", title: "Visual Aid" },
-      { id: "34kOHuVG01I", title: "Shop Assistant" },
-      { id: "S_cf7vytRzs", title: "System Update & Reset" },
-      { id: "00q8wNtUTwY", title: "Hearing Aid Mode" }
+      { id: "pxLp7vQ-25w", title: "Ayuda visual" },
+      { id: "34kOHuVG01I", title: "Asistente de tienda" },
+      { id: "S_cf7vytRzs", title: "Actualización y reinicio" },
+      { id: "00q8wNtUTwY", title: "Modo de ayuda auditiva" }
     ]
-  },
-  {
-    id: "faq",
-    title: "04. Frequently Asked Questions",
-    description: "Common retail questions.",
-    cover: "./course-cover-5-faq.png"
   }
 ];
 const DEFAULT_PRIZES = [
@@ -2467,18 +2461,24 @@ function renderSpecializationCards(courses, ownRecords) {
   els.specializationGrid.innerHTML = SPECIALIZATIONS.map((specialization) => {
     const { videoPct, materialPct, quizPct, isComplete, started } = computeSpecProgress(specialization, courses, ownRecords);
     const badgeClass = isComplete ? "specialization-badge is-complete" : "specialization-badge";
-    const badgeText = isComplete ? "COMPLETADO" : "NO COMPLETADO";
-    const ctaLabel = isComplete ? "Repasar" : (started ? "Continuar" : "Empezar a aprender");
+    const badgeText = isComplete ? "Completado" : (started ? "En Progreso" : "No Iniciado");
+    const ctaLabel = isComplete ? "Ver Curso" : (started ? "Continuar Aprendiendo" : "Comenzar a Aprender");
 
+    const courseMeta = {
+      "tv-basics": { videos: 6, files: 3 },
+      "product-training": { videos: 8, files: 4 },
+      "tv-operations": { videos: 7, files: 3 }
+    }[specialization.id] || { videos: 0, files: 0 };
     return `
       <button class="specialization-card" type="button" data-specialization="${specialization.id}">
         <span class="${badgeClass}">${badgeText}</span>
-        <img class="specialization-cover" src="${escapeHtml(specialization.cover)}" alt="${escapeHtml(specialization.title)} cover" loading="lazy" />
+        <img class="specialization-cover" src="${escapeHtml(specialization.cover)}" alt="${escapeHtml(specialization.title)}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" />
         <div class="specialization-info">
           <span class="specialization-step">${escapeHtml(specialization.title)}</span>
-          <div class="specialization-progress">
-            ${buildSpecMetricRows(videoPct, materialPct, quizPct)}
-          </div>
+          <span class="specialization-status-text">${badgeText}</span>
+          <div class="specialization-meta-v3"><span>▣ ${courseMeta.videos} Videos</span><span>▤ ${courseMeta.files} Archivos</span></div>
+          <div class="specialization-progress-v3"><span style="width:${videoPct || 0}%"></span></div>
+          <div class="specialization-progress-label-v3"><span>Progreso</span><b>${videoPct || 0}%</b></div>
           <span class="specialization-cta">
             <span class="specialization-cta-label">${ctaLabel}</span>
             <span class="specialization-cta-arrow">→</span>
@@ -5334,11 +5334,7 @@ function showAnnouncementModal() {
 }
 
 function setupAnnouncementButton() {
-  const btn = document.getElementById("notifyBellBtn");
-  if (!btn) return;
-  btn.addEventListener("click", () => {
-    showAnnouncementModal();
-  });
+  return;
 }
 
 function startUserSwitch() {
@@ -5630,7 +5626,7 @@ if (els.restoreInput) els.restoreInput.addEventListener("change", () => importBa
 els.clearButton.addEventListener("click", clearData);
 els.registrationForm.addEventListener("submit", handleRegistration);
 els.registerButton.addEventListener("click", handleRegistration);
-els.switchUserButton.addEventListener("click", startUserSwitch);
+if (els.switchUserButton) els.switchUserButton.addEventListener("click", startUserSwitch);
 els.backToTracksButton.addEventListener("click", backToSpecializationOverview);
 if (els.backToCatalogButton) els.backToCatalogButton.addEventListener("click", backToCourseCatalog);
 els.cancelEditButton.addEventListener("click", resetCourseEditor);
