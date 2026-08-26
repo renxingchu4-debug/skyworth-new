@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./styles.css?v=20260825f" />
     <link rel="stylesheet" href="./learning-v2.css?v=20260826" />
     <link rel="stylesheet" href="./learning-v3.css?v=20260826" />
+    <link rel="stylesheet" href="./hero-video.css?v=20260826" />
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <!-- Tailwind Play CDN (used by the embedded Ranking Dashboard React app only).
          Preflight is disabled to avoid clobbering global element defaults
@@ -168,7 +169,14 @@
             <form class="learning-search-v3" id="learningSearchForm"><span aria-hidden="true">⌕</span><input id="learningSearchInput" type="search" placeholder="Buscar cursos, palabras clave, conocimientos de productos" /><button type="submit" aria-label="Buscar">⌕</button></form>
             <div id="learningSearchEmpty" class="learning-search-empty" hidden>No se encontraron cursos<br /><small>Intenta con otra palabra clave.</small></div>
           </div>
-          <div class="learning-hero-image-v3"><img src="./assets/images/panasonic-tv-hero.jpg" alt="Sala con televisor Panasonic" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" /><span>Recurso: /assets/images/panasonic-tv-hero.jpg</span></div>
+          <div class="learning-hero-image-v3 hero-video-container-v3">
+            <div class="hero-video-loading-v3" aria-hidden="true"></div>
+            <video class="hero-background-video-v3" autoplay muted loop playsinline preload="auto" poster="./assets/images/panasonic-tv-hero.jpg" aria-hidden="true">
+              <source src="./assets/videos/panasonic-hero.mov" type="video/quicktime" />
+            </video>
+            <div class="hero-video-fallback-v3" aria-hidden="true"></div>
+            <span>Recurso: /assets/videos/panasonic-hero.mov</span>
+          </div>
         </section>
         <div class="learning-main-v3">
           <section class="learning-column-v3 learning-continue-column">
@@ -732,6 +740,7 @@
 
       <script src="./app.js?v=20260825e"></script>
       <script src="./learning-v3.js?v=20260826"></script>
+      <script src="./hero-video.js?v=20260826"></script>
     </div>
 
     <!-- ═══════════════════════════════════════════════
