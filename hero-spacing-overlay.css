@@ -1,0 +1,10 @@
+/* Hero-only spacing and search width refinement. Video sizing and content remain unchanged. */
+#learn.learning-center-v3 .learning-hero-v3{height:400px!important;min-height:400px!important}
+#learn.learning-center-v3 .learning-hero-v3-copy{padding-top:38px!important;padding-bottom:30px!important}
+#learn.learning-center-v3 .learning-kicker{margin-bottom:18px!important}
+#learn.learning-center-v3 .learning-hero-v3-copy>p{margin-top:18px!important}
+#learn.learning-center-v3 .learning-user-chip{margin-top:10px!important}
+#learn.learning-center-v3 .learning-search-v3{width:min(65vw,760px)!important;max-width:760px!important;min-width:560px!important;margin-top:22px!important;box-sizing:border-box!important}
+#learn.learning-center-v3 .learning-hero-image-v3:after{background:linear-gradient(90deg,rgba(15,16,18,.72) 0%,rgba(15,16,18,.46) 18%,rgba(15,16,18,.16) 32%,rgba(15,16,18,.035) 48%,transparent 60%)!important}
+@media(max-width:900px){#learn.learning-center-v3 .learning-search-v3{width:100%!important;max-width:none!important;min-width:0!important}}
+@media(max-width:700px){#learn.learning-center-v3 .learning-hero-v3{height:400px!important;min-height:400px!important}#learn.learning-center-v3 .learning-hero-v3-copy{padding-top:30px!important;padding-bottom:24px!important}#learn.learning-center-v3 .learning-kicker{margin-bottom:14px!important}#learn.learning-center-v3 .learning-hero-v3-copy>p{margin-top:14px!important}#learn.learning-center-v3 .learning-user-chip{margin-top:8px!important}#learn.learning-center-v3 .learning-search-v3{margin-top:18px!important}#learn.learning-center-v3 .learning-hero-image-v3:after{background:linear-gradient(90deg,rgba(15,16,18,.58),rgba(15,16,18,.1) 68%,transparent)!important}}
