@@ -1,0 +1,5 @@
+/* Hero-only: replace the pale left text backdrop with a deep black tonal base. */
+#learn.learning-center-v3 .learning-hero-v3{background:#080909!important}
+#learn.learning-center-v3 .learning-hero-v3-copy{background:linear-gradient(90deg,#080909 0%,#080909 58%,rgba(8,9,9,.9) 76%,rgba(8,9,9,0) 100%)!important}
+#learn.learning-center-v3 .learning-hero-image-v3{background:#080909!important}
+@media(max-width:700px){#learn.learning-center-v3 .learning-hero-v3-copy{background:linear-gradient(90deg,rgba(8,9,9,.96) 0%,rgba(8,9,9,.86) 42%,rgba(8,9,9,.35) 76%,rgba(8,9,9,0) 100%)!important}}
