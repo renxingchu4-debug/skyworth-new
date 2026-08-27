@@ -2471,10 +2471,10 @@ function renderSpecializationCards(courses, ownRecords) {
     const ctaLabel = isComplete ? "Ver Curso" : (started ? "Continuar Aprendiendo" : "Comenzar a Aprender");
 
     const courseMeta = {
-      "tv-basics": { videos: 6, files: 3 },
-      "product-training": { videos: 8, files: 4 },
-      "tv-operations": { videos: 7, files: 3 }
-    }[specialization.id] || { videos: 0, files: 0 };
+      "tv-basics": { videos: 6, files: 3, description: "Aprende los fundamentos y principios esenciales de los televisores." },
+      "product-training": { videos: 8, files: 4, description: "Conoce las características y beneficios clave de los televisores." },
+      "tv-operations": { videos: 7, files: 3, description: "Domina los pasos de instalación, configuración y operación." }
+    }[specialization.id] || { videos: 0, files: 0, description: "Contenido de capacitación de productos de TV." };
     return `
       <button class="specialization-card" type="button" data-specialization="${specialization.id}" data-status="${statusValue}">
         <span class="${badgeClass}">${badgeText}</span>
@@ -2482,6 +2482,7 @@ function renderSpecializationCards(courses, ownRecords) {
         <div class="specialization-info">
           <span class="specialization-step">${escapeHtml(specialization.title)}</span>
           <span class="specialization-status-text">${badgeText}</span>
+          <span class="specialization-description-v3">${escapeHtml(courseMeta.description)}</span>
           <div class="specialization-meta-v3"><span>▣ ${courseMeta.videos} Videos</span><span>▤ ${courseMeta.files} Archivos</span></div>
           <div class="specialization-progress-v3"><span style="width:${videoPct || 0}%"></span></div>
           <div class="specialization-progress-label-v3"><span>Progreso</span><b>${videoPct || 0}%</b></div>
