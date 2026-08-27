@@ -2477,13 +2477,12 @@ function renderSpecializationCards(courses, ownRecords) {
     }[specialization.id] || { videos: 0, files: 0, description: "Contenido de capacitación de productos de TV." };
     return `
       <button class="specialization-card" type="button" data-specialization="${specialization.id}" data-status="${statusValue}">
-        <span class="${badgeClass}">${badgeText}</span>
         <img class="specialization-cover" src="${escapeHtml(specialization.cover)}" alt="${escapeHtml(specialization.title)}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" />
         <div class="specialization-info">
           <span class="specialization-step">${escapeHtml(specialization.title)}</span>
-          <span class="specialization-status-text">${badgeText}</span>
+          <span class="specialization-status-text ${isComplete ? 'is-complete' : (started ? 'is-progress' : 'is-not-started')}"><i></i>${badgeText}</span>
           <span class="specialization-description-v3">${escapeHtml(courseMeta.description)}</span>
-          <div class="specialization-meta-v3"><span>▣ ${courseMeta.videos} Videos</span><span>▤ ${courseMeta.files} Archivos</span></div>
+          <div class="specialization-meta-v3"><span class="course-stat-v3"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m10 9 5 3-5 3z"></path></svg>${courseMeta.videos} Videos</span><span class="course-stat-v3"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v5h5M9 13h6M9 17h6"></path></svg>${courseMeta.files} Archivos</span></div>
           <div class="specialization-progress-v3"><span style="width:${videoPct || 0}%"></span></div>
           <div class="specialization-progress-label-v3"><span>Progreso</span><b>${videoPct || 0}%</b></div>
           <span class="specialization-cta">
