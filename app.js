@@ -2423,6 +2423,11 @@ function buildSpecMetricRows(videoPct, materialPct, quizPct) {
 }
 
 function computeSpecProgress(specialization, courses, ownRecords) {
+  const demoProgress = { "tv-basics": { videoPct: 65, materialPct: 65, quizPct: 65 }, "product-training": { videoPct: 0, materialPct: 0, quizPct: 0 }, "tv-operations": { videoPct: 0, materialPct: 0, quizPct: 0 } };
+  if (!currentProfile && demoProgress[specialization.id]) {
+    const demo = demoProgress[specialization.id];
+    return { ...demo, isComplete: false, started: demo.videoPct > 0 };
+  }
   const scopedCourses = courses.filter((course) => (course.specializationId || SPECIALIZATIONS[0].id) === specialization.id);
   const scopedRecords = ownRecords.filter((record) => (record.specializationId || SPECIALIZATIONS[0].id) === specialization.id);
 
@@ -2462,6 +2467,7 @@ function renderSpecializationCards(courses, ownRecords) {
     const { videoPct, materialPct, quizPct, isComplete, started } = computeSpecProgress(specialization, courses, ownRecords);
     const badgeClass = isComplete ? "specialization-badge is-complete" : "specialization-badge";
     const badgeText = isComplete ? "Completado" : (started ? "En Progreso" : "No Iniciado");
+    const statusValue = isComplete ? "completed" : (started ? "in-progress" : "not-started");
     const ctaLabel = isComplete ? "Ver Curso" : (started ? "Continuar Aprendiendo" : "Comenzar a Aprender");
 
     const courseMeta = {
@@ -2470,7 +2476,7 @@ function renderSpecializationCards(courses, ownRecords) {
       "tv-operations": { videos: 7, files: 3 }
     }[specialization.id] || { videos: 0, files: 0 };
     return `
-      <button class="specialization-card" type="button" data-specialization="${specialization.id}">
+      <button class="specialization-card" type="button" data-specialization="${specialization.id}" data-status="${statusValue}">
         <span class="${badgeClass}">${badgeText}</span>
         <img class="specialization-cover" src="${escapeHtml(specialization.cover)}" alt="${escapeHtml(specialization.title)}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" />
         <div class="specialization-info">
@@ -3510,34 +3516,18 @@ async function renderCourses() {
     renderSpecializationCards([], []);
   }
 
-  // Populate category filter dropdown with all course categories
+  // Learning filter: show all courses or filter by current status.
   const categoryFilter = document.getElementById("categoryFilter");
-  if (categoryFilter && categoryFilter.options.length <= 1) {
-    const selectedValue = categoryFilter.value;
-    categoryFilter.innerHTML = '<option value="all">All Courses</option>';
-    SPECIALIZATIONS.forEach(spec => {
-      const option = document.createElement("option");
-      option.value = spec.id;
-      option.textContent = spec.title;
-      categoryFilter.appendChild(option);
-    });
-    categoryFilter.value = selectedValue;
-  }
-
-  // Filter change handler — re-render specialization cards
   if (categoryFilter && !categoryFilter._listenerAttached) {
     categoryFilter._listenerAttached = true;
-    categoryFilter.addEventListener("change", async () => {
+    categoryFilter.addEventListener("change", () => {
       const filterVal = categoryFilter.value;
-      const allCards = document.querySelectorAll("#learn .specialization-card");
-      allCards.forEach(card => {
-        if (filterVal === "all" || card.dataset.specialization === filterVal) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
+      document.querySelectorAll("#learn .specialization-card").forEach((card) => {
+        const status = card.dataset.status;
+        const matches = filterVal === "all" || status === filterVal;
+        card.hidden = !matches;
+        card.style.display = "";
       });
-      // Update carousel arrows after filtering
       updateCarouselArrows();
     });
   }

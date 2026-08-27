@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./learning-v2.css?v=20260826" />
     <link rel="stylesheet" href="./learning-v3.css?v=20260826" />
     <link rel="stylesheet" href="./hero-video.css?v=20260826" />
+    <link rel="stylesheet" href="./learning-polish.css?v=20260827" />
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <!-- Tailwind Play CDN (used by the embedded Ranking Dashboard React app only).
          Preflight is disabled to avoid clobbering global element defaults
@@ -171,21 +172,20 @@
           </div>
           <div class="learning-hero-image-v3 hero-video-container-v3">
             <div class="hero-video-loading-v3" aria-hidden="true"></div>
-            <video class="hero-background-video-v3" autoplay muted loop playsinline preload="auto" poster="./assets/images/panasonic-tv-hero.jpg" aria-hidden="true">
+            <video class="hero-background-video-v3" autoplay muted loop playsinline preload="auto" poster="./assets/videos/panasonic-hero.mp4" aria-hidden="true">
               <source src="./assets/videos/panasonic-hero.mp4" type="video/mp4" />
               <source src="./assets/videos/panasonic-hero.mov" type="video/quicktime" />
             </video>
             <div class="hero-video-fallback-v3" aria-hidden="true"></div>
-            <span>Recurso: /assets/videos/panasonic-hero.mov</span>
           </div>
         </section>
         <div class="learning-main-v3">
           <section class="learning-column-v3 learning-continue-column">
             <div class="learning-panel-heading"><h2>Continuar Aprendiendo</h2></div>
-            <article class="learning-continue-card-v3" id="learnContinueCard"><div class="learning-course-image-v3"><img src="./assets/images/tv-basics.jpg" alt="TV Basics" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" /></div><div class="learning-card-body-v3"><h3 id="continueCourseTitle">TV Basics</h3><span class="learning-status-v3 status-progress">En Progreso</span><div class="learning-progress-line"><span id="continueProgressFill" style="width:65%"></span></div><div class="learning-progress-meta"><b id="continueProgressText">65%</b></div><button class="learning-primary-v3 learn-continue-btn" id="continueBtn" type="button">Continuar Aprendiendo <span>→</span></button></div></article>
+            <article class="learning-continue-card-v3" id="learnContinueCard"><div class="learning-course-image-v3"><img src="./assets/images/courses/tv-basics.png" alt="TV Basics" onerror="this.style.display='none';this.parentElement.classList.add('is-placeholder')" /></div><div class="learning-card-body-v3"><h3 id="continueCourseTitle">TV Basics</h3><span class="learning-status-v3 status-progress">En Progreso</span><div class="learning-progress-line"><span id="continueProgressFill" style="width:65%"></span></div><div class="learning-progress-meta"><b id="continueProgressText">65%</b></div><button class="learning-primary-v3 learn-continue-btn" id="continueBtn" type="button">Continuar Aprendiendo <span>→</span></button></div></article>
           </section>
           <section class="learning-column-v3 learning-courses-column learn-categories-section">
-            <div class="learning-panel-heading learning-courses-heading"><div><h2>Cursos</h2><p>Desarrolla el conocimiento que impulsa cada venta.</p></div><label class="learning-filter-v3"><span>Filtrar</span><select id="categoryFilter"><option value="all">Todos los cursos</option></select></label></div>
+            <div class="learning-panel-heading learning-courses-heading"><div><h2>Cursos</h2><p>Desarrolla el conocimiento que impulsa cada venta.</p></div><label class="learning-filter-v3"><span>Filtrar</span><select id="categoryFilter"><option value="all">Todos los cursos</option><option value="in-progress">En Progreso</option><option value="completed">Completados</option><option value="not-started">No Iniciados</option></select></label></div>
             <div class="learning-course-grid-v3" id="learnCarouselTrack"><div id="specializationGrid" class="specialization-grid"></div></div>
             <div class="learning-search-results-v3" id="learningSearchResults" hidden></div>
           </section>
