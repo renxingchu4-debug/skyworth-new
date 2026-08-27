@@ -1,0 +1,4 @@
+/* Keep the supplied 16:9 Hero video at its natural proportion; do not zoom/crop it. */
+#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:right center!important;transform:none!important;scale:none!important;background:#252525!important}
+#learn.learning-center-v3 .hero-video-container-v3{background:#252525!important}
+@media(max-width:700px){#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{object-position:center center!important;object-fit:contain!important}}
