@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="./hero-video-scale-fix.css?v=20260827" />
     <link rel="stylesheet" href="./hero-transition-fix.css?v=20260827" />
     <link rel="stylesheet" href="./hero-complete-view.css?v=20260827" />
+    <link rel="stylesheet" href="./hero-seamless-transition.css?v=20260827" />
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <!-- Tailwind Play CDN (used by the embedded Ranking Dashboard React app only).
          Preflight is disabled to avoid clobbering global element defaults
@@ -180,6 +181,9 @@
             <div id="learningSearchEmpty" class="learning-search-empty" hidden>No se encontraron cursos<br /><small>Intenta con otra palabra clave.</small></div>
           </div>
           <div class="learning-hero-image-v3 hero-video-container-v3">
+            <video class="hero-video-ambient-v3" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+              <source src="./assets/videos/panasonic-hero.mp4" type="video/mp4" />
+            </video>
             <div class="hero-video-loading-v3" aria-hidden="true"></div>
             <video class="hero-background-video-v3" autoplay muted loop playsinline preload="auto" poster="" aria-hidden="true">
               <source src="./assets/videos/panasonic-hero.mp4" type="video/mp4" />
