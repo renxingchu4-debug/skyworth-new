@@ -1,0 +1,6 @@
+/* Show the complete supplied Hero frame without vertical cropping. */
+#learn.learning-center-v3 .hero-video-container-v3{background:#272727!important;overflow:hidden!important}
+#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:right center!important;transform:none!important;scale:none!important;background:#272727!important}
+#learn.learning-center-v3 .hero-video-container-v3 .hero-video-fallback-v3{inset:0!important;background:#272727!important}
+#learn.learning-center-v3 .learning-hero-image-v3:after{background:linear-gradient(90deg,rgba(16,16,16,.76) 0%,rgba(16,16,16,.48) 18%,rgba(16,16,16,.16) 34%,rgba(16,16,16,.035) 50%,transparent 64%)!important}
+@media(max-width:700px){#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{object-fit:contain!important;object-position:center center!important}}
