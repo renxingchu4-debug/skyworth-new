@@ -1,0 +1,7 @@
+/* Hero-only refinement: restrained 1.2x video scale and continuous text-to-video transition. */
+#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:right center!important;transform:scale(1.2)!important;transform-origin:right center!important;background:#252525!important}
+#learn.learning-center-v3 .hero-video-container-v3 .hero-video-fallback-v3{inset:0!important;background:#252525!important}
+#learn.learning-center-v3 .hero-video-container-v3:after{content:""!important;position:absolute!important;z-index:2!important;inset:0!important;pointer-events:none!important;background:linear-gradient(90deg,rgba(18,18,18,.82) 0%,rgba(18,18,18,.64) 16%,rgba(18,18,18,.34) 30%,rgba(18,18,18,.12) 43%,rgba(18,18,18,.025) 56%,transparent 70%)!important}
+#learn.learning-center-v3 .learning-hero-v3-copy{position:relative!important;z-index:4!important;background:transparent!important}
+#learn.learning-center-v3 .hero-video-container-v3 .hero-video-loading-v3{z-index:3!important}
+@media(max-width:700px){#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{transform:scale(1.2)!important;transform-origin:center center!important}#learn.learning-center-v3 .hero-video-container-v3:after{background:linear-gradient(90deg,rgba(18,18,18,.7) 0%,rgba(18,18,18,.36) 36%,rgba(18,18,18,.08) 68%,transparent 100%)!important}}
