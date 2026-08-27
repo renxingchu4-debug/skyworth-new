@@ -1,0 +1,13 @@
+/* Stable Hero baseline: one supplied video, no duplicate layers, no zoom, complete content flow. */
+#learn.learning-center-v3 .hero-video-ambient-v3{display:none!important}
+#learn.learning-center-v3 .learning-hero-v3{height:400px!important;min-height:400px!important;overflow:hidden!important;position:relative!important;background:#2b2925!important}
+#learn.learning-center-v3 .learning-hero-v3-copy{position:relative!important;z-index:3!important;width:48%!important;height:100%!important;box-sizing:border-box!important;padding:42px 24px 30px clamp(28px,5vw,78px)!important;background:linear-gradient(90deg,rgba(25,24,22,.94),rgba(25,24,22,.68),transparent)!important}
+#learn.learning-center-v3 .learning-hero-image-v3{position:absolute!important;inset:0 0 0 35%!important;z-index:0!important;background:#d8d1c5!important;overflow:hidden!important}
+#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center center!important;transform:none!important;scale:none!important;background:#252525!important;z-index:0!important}
+#learn.learning-center-v3 .hero-video-container-v3 .hero-video-fallback-v3{position:absolute!important;inset:0!important;z-index:-1!important;background:#252525!important}
+#learn.learning-center-v3 .hero-video-container-v3:after{content:""!important;position:absolute!important;inset:0!important;z-index:2!important;pointer-events:none!important;background:linear-gradient(90deg,rgba(25,24,22,.16) 0%,rgba(25,24,22,.07) 24%,rgba(25,24,22,.02) 48%,transparent 68%)!important}
+#learn.learning-center-v3 .learning-hero-image-v3>span{display:none!important}
+#learn.learning-center-v3 .learning-hero-v3-copy>p{margin-top:16px!important;margin-bottom:0!important}
+#learn.learning-center-v3 .learning-search-v3{margin-top:18px!important}
+@media(max-width:1050px){#learn.learning-center-v3 .learning-hero-v3{height:360px!important;min-height:360px!important}#learn.learning-center-v3 .learning-hero-v3-copy{width:58%!important;padding-top:34px!important}}
+@media(max-width:700px){#learn.learning-center-v3 .learning-hero-v3{height:320px!important;min-height:320px!important}#learn.learning-center-v3 .learning-hero-v3-copy{width:100%!important;padding:28px 20px 22px!important;background:linear-gradient(90deg,rgba(25,24,22,.7),rgba(25,24,22,.15) 70%,transparent)!important}#learn.learning-center-v3 .hero-video-container-v3 .hero-background-video-v3{object-position:center center!important}}
